@@ -91,6 +91,8 @@ public class Tesztesetek {
 	//KÉSZ
 	public void toronytuzel(){
 		testTorony.tick();
+		
+		System.out.println("Git proba (Aron)");
 	}
 	
 	//KÉSZ
