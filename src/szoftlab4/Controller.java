@@ -24,7 +24,7 @@ public class Controller {
 		try {
 		palyaSzam = Integer.parseInt(Log.br.readLine());
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		
 		
