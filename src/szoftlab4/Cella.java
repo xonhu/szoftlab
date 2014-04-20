@@ -8,7 +8,7 @@ public class Cella {
 
 	public Cella()
 	{
-
+		szomszedok = new ArrayList<Cella>();
 	}
 
 	public Cella(ArrayList<Cella> l){		// A Cella konstruktora
