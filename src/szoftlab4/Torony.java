@@ -9,86 +9,75 @@ public class Torony implements Aktiv, Mezorevalo {
 		private int hatotav;
 		private int tuzgyak;
 		private int sebzes;
+		private int counter;
 		ArrayList<Toronykovek> kovek;
 	
 //Torony publikus konstruktora
 		Torony(){
 			hatotav=1;
-			tuzgyak=1;
+			tuzgyak=10;
 			sebzes=1;
+			counter = 0;
 			kovek = new ArrayList<Toronykovek>();
 			sajatMezo = new Mezo();
 		}
 //Ha történik a rendszerben egy tick(), ez a metódus hívódik meg	
+//TODO: Jelenleg nincs implementálva, hogy a kövek függvényében változzon a tüzelés gyakorisága
 		public void tick(){
-			Log.log(LogType.CALL, this, "tick()");
-			
-			Log.log(LogType.KERDES, null, "Lõjön most a torony? [true/false]");
-			
-			String inS = null;
-			try {
-				inS = Log.br.readLine();
-				if(inS.equals("true")) tuzel();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			if(counter >= tuzgyak){
+				tuzel();
+				counter = 0;
 			}
+				counter++;
 			
-			
-			Log.log(LogType.RETURN, null, "tick()");
 		}
-//Létrehoz egy lövedéket, amit egy ellenségnek átadva, sebezzük azt		
+//Létrehoz egy lövedéket, amit egy ellenségnek átadva, sebezzük azt	
+//TODO: Nincs implementálva az, hogy a kövektõl függjön az elkészült lövedék tulajdonsága
 		private Lovedek createLovedek(){
-			Log.log(LogType.CALL, this, "createLovedek()");
 			
 			Lovedek lov = new Lovedek();
-			Log.add(lov, "lovedek");
 			
-			Log.log(LogType.RETURN, Log.map.get(lov), "createLovedek()");
 			return lov;
 		}
+		
 //Amennyiben a tick() meghívja, a torony tüzelni fog. Elõször létrehoz egy lövedéket, majd
 //átadja azt a sebezni kívánt ellenségnek.
-		public void tuzel() throws NumberFormatException, IOException{
-			Log.log(LogType.CALL, this, "tuzel()");
+		public void tuzel() {
 			
-			ArrayList<Ellenseg> ellen = lekerdez(1);
+			ArrayList<Ellenseg> ellen = lekerdez(hatotav);
 			Lovedek lov = createLovedek();
 			
-			Tesztesetek.testEllenseg.sebez(lov);
+			for(int i = 0;i<ellen.size();i++){
+				ellen.get(i).sebez(lov);
+			}
 			
-			Log.log(LogType.RETURN, null, "tuzel()");
 		}
 		
-//Lekérdezi a közelben lévõ ellenségeket. Ezek után visszadja azt.
+//Lekérdezi a közelben(hatótávon belül) található ellenségeket. Ezek után visszadja azt.
 		public ArrayList<Ellenseg> lekerdez(int melyseg){
-			Log.log(LogType.CALL, this, "lekerdez()");
 			
 			ArrayList<Ut> utak = sajatMezo.kozelbenvan(melyseg);
 			ArrayList<Ellenseg> ellen = new ArrayList<Ellenseg>();
 			
-			Log.log(LogType.KERDES, null, "Van ellenség az utakon? [true/false]");
-			try {
-				if((Log.br.readLine()).equals("true")) return null;
-			} catch (IOException e) {
-				e.printStackTrace();
+			for(int i = 0;i<utak.size();i++){
+				ArrayList<Ellenseg> rajta = utak.get(i).kivanrajtam();
+				if(rajta != null){
+					for(int j = 0; j<rajta.size();j++){
+						ellen.add(rajta.get(j));
+					}
+				}
 			}
 			
-			Log.log(LogType.RETURN, Log.map.get(Tesztesetek.testEllenseg), "lekerdez()");
 			return ellen;
 		}
 		
 //Felszereli a tornyot a paraméterkét kapott kõvel
 		public void addKo(Toronykovek ko){
-			Log.log(LogType.CALL, this, "addKo()");
 			kovek.add(ko);
-			Log.log(LogType.RETURN, null, "addKo()");
 		}
 		
 //Inicializálja a mezõt, amint a torony áll
 		public void init(Mezo testMezo) {
-			Log.log(LogType.CALL, this, "init()");
 			sajatMezo = testMezo;
-			Log.log(LogType.RETURN, null, "init()");
 		}
 }

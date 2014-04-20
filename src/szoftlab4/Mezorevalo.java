@@ -4,5 +4,5 @@ package szoftlab4;
 public interface Mezorevalo {
 	
 	public void init(Mezo sajatMezo);
-
+		
 }

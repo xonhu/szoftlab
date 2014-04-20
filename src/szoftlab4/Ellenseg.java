@@ -7,22 +7,22 @@ import java.util.ArrayList;
 public class Ellenseg implements Utravalo, Aktiv {
 	
 	//Tartalmazza hogy az Elenség éppen melyik mezõn van rajta
-	private Ut sajatUt;
+	protected Ut sajatUt;
 	
 	//Tartalmazza az Ellenség életének értékét
 	//Leszármazott osztályokban felülírni!
-	private int elet;
+	protected int elet;
 	
 	//Tartalmazza, hogy az Ellenség halála esetén mennyivel növekszik a játékos varázsereje
 	//Leszármazott osztályokban felülírni!
-	private int ertek;
+	protected int ertek;
 	
 	//Az Ellenség osztály konstruktora
 	//Leszármazott osztályban felülírni!
 	public Ellenseg(Ut sajat){
 		sajatUt = sajat;
-		elet = 50;
-		ertek = 50;
+		elet = 0;
+		ertek = 0;
 	}
 	
 	//Ha tick történik a rendszerben, ez a függvény hívódik meg
