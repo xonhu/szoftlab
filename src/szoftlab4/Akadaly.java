@@ -15,47 +15,51 @@ public class Akadaly implements Utravalo {
 	//Amennyiben a torony fel van szerelve kõvel, ennek az értéke nem null.
 	private Lilavarazsko ko;
 	
+	private int counter;
+	
 	//Az Akadály osztály publikus konstruktora
 	public Akadaly(){
 		sajatUt = null;
-		lassitas = 0;
+		counter = 0;
+		lassitas = 10;
 		ko = null;
 	}
 	
 	//Függvény ami visszaadja, hogy az adott körben léphet-e az Ellenség
 	public boolean lephete(){
-		Log.log(LogType.CALL, this, "lephete()");
-		
-		Log.log(LogType.KERDES, null, "Léphet? [true/false]");
-		// Szkeleton miatt ELEJE
-		
-		Log.br = new BufferedReader(new InputStreamReader(System.in));
-		String s= "";
-		boolean valasz = false;
-		try {
-			s = Log.br.readLine();
-			if (s.equals("true")) valasz = true;	// Ha true akkor megváltoztatja a válasz értékét logikai igazra.
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	
+	//Attól függõen engedi lépni a hívót, hogy fel van-e szerelve kõvel, és ha igen, elég régóta nem
+	//léphetett-e.
+		if(ko != null){
+			if((lassitas*2)>= counter){
+				counter++;
+				return false;
+				}else{
+					counter = 0;
+					return true;
+				}
+			}
+		else{
+			if(lassitas >= counter){
+				counter++;
+				return false;
+			}else{
+				counter = 0;
+				return true;
+			}
 		}
-
 		
-		Log.log(LogType.RETURN, null, s);	
-		return valasz;
 	}
 	
 	//Inicializálja a sajatUt attribútumot
-	public void init(Ut sajatUt){
-		Log.log(LogType.CALL, this, "init(Ut sajatUt)");
-		Log.log(LogType.RETURN, null, "void");
+	public void init(Ut sajat){
+		sajatUt = sajat;
+
 	}
 	
 	//Lilavarázskövet hozzáadja az akadályhoz. A fejlesztés során hívódik meg
 	public void addko(Lilavarazsko varazsko){
-		Log.log(LogType.CALL, this, "addko()");
 		ko = varazsko;
-		Log.log(LogType.RETURN, this, "void");
 	}
 	
 

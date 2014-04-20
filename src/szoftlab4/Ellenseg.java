@@ -1,6 +1,7 @@
 package szoftlab4;
 
 import java.io.IOException;
+import java.util.Random;
 import java.util.ArrayList;
 
 public class Ellenseg implements Utravalo, Aktiv {
@@ -17,6 +18,7 @@ public class Ellenseg implements Utravalo, Aktiv {
 	private int ertek;
 	
 	//Az Ellenség osztály konstruktora
+	//Leszármazott osztályban felülírni!
 	public Ellenseg(Ut sajat){
 		sajatUt = sajat;
 		elet = 50;
@@ -24,10 +26,11 @@ public class Ellenseg implements Utravalo, Aktiv {
 	}
 	
 	//Ha tick történik a rendszerben, ez a függvény hívódik meg
+	//Leszármazott osztályban felülírni!
 	public void tick(){
 		
-	//TODO: Ide kell egy logika, ami megmondja hogy az ellenség a körben léphet-e.
-		if(true){
+	//TODO: Ide kell egy logika, ami megmondja hogy az ellenség a körben léphet-e, lépni szeretne.
+		if(false){
 			ArrayList<Ut> lehetsegesutak = sajatUt.lepnek();
 			lepek(lehetsegesutak);
 		}
@@ -62,10 +65,11 @@ public class Ellenseg implements Utravalo, Aktiv {
 		
 	}
 	
-	//Kiválaszt egy Ut-at ahova lépni szeretne
+	//Kiválaszt egy utat ahova lépni szeretne
 	public void lepek(ArrayList<Ut> utak){
-	//TODO: Ide kell egy logika, ami az utak közül kiválasztja azt hogy hova lépünk
-	//Ez lesz a kovetkezout
+		 Random randomGenerator = new Random();
+		 int index = randomGenerator.nextInt(utak.size());
+         Ut kovetkezout = utak.get(index);
 		kovetkezout.ratesz(this);
 	}
 	

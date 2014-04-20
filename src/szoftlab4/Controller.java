@@ -51,5 +51,11 @@ public class Controller {
 		
 		Log.log(LogType.RETURN, this, "void");	
 	}
+	
+	//Függvény, aminek meghívásával jelezhetjük a játék végét. True-t kell neki átadni, ha a játékos nyert, 
+	//false-ot ha a játékos vesztett.
+	public void endgame(boolean nyerte){
+		
+	}
 
 }

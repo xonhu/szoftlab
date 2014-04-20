@@ -2,20 +2,20 @@ package szoftlab4;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class EllensegKeszito implements Aktiv {
 		private ArrayList<Ut> belepoUtak;
 		
-		public EllensegKeszito(){
-			belepoUtak = null;
+		public EllensegKeszito(ArrayList<Ut> utak){
+			belepoUtak = utak;
 		}
 		
-		public void tick(){
-			Log.log(LogType.CALL, this, "tick()");
-			Ut valasztott;
+		public void tick(){  
+	         
 			String ellenseg;
 			
-			valasztott = utatValaszt();
+			Ut valasztott = utatValaszt();
 			ellenseg = getEllensegTipus();
 			
 			if(ellenseg.matches("Hobbit"))
@@ -27,30 +27,30 @@ public class EllensegKeszito implements Aktiv {
 			else
 				valasztott.ratesz(new Torpe(valasztott));
 			
-			Log.log(LogType.RETURN, null, "void");
 		}
 		
 		public String getEllensegTipus(){
-			String mitad = null;
-			Log.log(LogType.CALL, this, "getEllensegTipus()");
-
+			String mitad = null;			
 			
-			Log.log(LogType.KERDES, null, "Milyen ellenséget csináljunk? [Ember/Hobbit/Tünde/Törp]");
-			
-			try {
-				mitad = Log.br.readLine();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			Random randomGenerator = new Random();
+			int index = randomGenerator.nextInt(3);
+	        
+			switch(index)
+			{
+			case 0: mitad = new String("Ember"); break;
+			case 1: mitad = new String("Hobbit"); break;
+			case 2: mitad = new String("Torp"); break;
+			case 3: mitad = new String("Tunde"); break;
 			}
-			Log.log(LogType.RETURN, null, "String");
+			
 			return mitad;
 		}
 		
 		public Ut utatValaszt(){
-			Log.log(LogType.CALL, this, "utatValaszt()");
-			Log.log(LogType.RETURN, null, "Ut");
-			return Tesztesetek.testUt ;
+			Random randomGenerator = new Random();
+			int index = randomGenerator.nextInt(belepoUtak.size());
+	        Ut belepout = belepoUtak.get(index);
+	        return belepout;
 		}
 		
 }
