@@ -1,7 +1,7 @@
 package szoftlab4;
 
 public class Game {
-	Jatekter jatekter;
-	Controller controller;
+	public static Jatekter jatekter;
+	public static Controller controller;
 
 }
