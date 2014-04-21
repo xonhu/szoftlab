@@ -15,18 +15,19 @@ public class Application {
 	 */
 	private static enum Code {
 		loadmap, printstate, tick, printpower, printgems, buygem, addtower, addtowergem, 
-		addtrapgem, addenemy, addspecialprojectile, addfog, enemydirection, exit, error;
+		addtrapgem, addenemy, addspecialprojectile, addfog, enemydirection, exit, error, enter;
 		
 		/*
 		 *	Paraméterként átadott sztringhez tartozó kódszó visszaadása
 		 */
 	    static Code parseString(String par) {
 	        try {
+	        	if(par.equals("")) return enter;
 	            return valueOf(par);
+	        } catch (NullPointerException ex){
+	        	return enter;
 	        } catch (IllegalArgumentException ex) {
 	            return error;
-	        } catch (NullPointerException ex){
-	        	return error;
 	        }
 	    }
 	}
@@ -35,7 +36,7 @@ public class Application {
 		try {
 			startProto();
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}
 
 	}
@@ -53,14 +54,14 @@ public class Application {
 		
 			while(!exit_flag)
 			{
-				try {							//A felhasználó választásának beolvasása
-					line = br.readLine();
-					parancs = line.split(" ");
+				try {										//A felhasználó választásának beolvasása
+					line = br.readLine();					//Egy sor beolvasása
+					parancs = line.split("\\s+"); 			//Sor tördelése szóközök mentén
 				} catch (IOException e) {
 					System.out.println(e.getMessage());
 				}
 				
-				switch(Code.parseString(parancs[0])){
+				switch(Code.parseString(parancs[0])){		//parseString() enum típussal tér vissza
 				case loadmap:
 					loadmap(parancs);
 					break;
@@ -107,6 +108,8 @@ public class Application {
 				case error:
 					System.out.println("Bad command");
 					break;
+				case enter:
+					break;
 				default:
 					break;
 				}
@@ -135,7 +138,7 @@ public class Application {
 */		
 	
 	public static void loadmap(String args[]){
-		if(args[1] != null) Game.jatekter.betolt(args[1]);
+		if(args.length > 1)	System.out.println("Betoltes: " + args[1]);
 		else System.out.println("Invalid parameter");
 	}
 	public static void printstate(){
