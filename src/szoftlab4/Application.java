@@ -10,6 +10,9 @@ import java.io.InputStreamReader;
  */
 public class Application {
 	
+	private static Jatekos user = new Jatekos();
+	private static Jatekter palya = new Jatekter(user);
+	
 	/*
 	 *	Prototípus konzolos felületének parancsai 
 	 */
@@ -138,7 +141,10 @@ public class Application {
 */		
 	
 	public static void loadmap(String args[]){
-		if(args.length > 1)	System.out.println("Betoltes: " + args[1]);
+		if(args.length > 1)	{
+			System.out.println("Betoltes: " + args[1]);
+			palya.betolt(args[1]);
+			}
 		else System.out.println("Invalid parameter");
 	}
 	public static void printstate(){
