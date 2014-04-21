@@ -18,7 +18,7 @@ public class Application {
 	 *	Prototípus konzolos felületének parancsai 
 	 */
 	private static enum Code {
-		loadmap, printstate, tick, printpower, printgems, buygem, addtower, addtowergem, 
+		loadmap, printstate, tick, printpower, printgems, buygem, addtower, addtowergem, addtrap,  
 		addtrapgem, addenemy, addspecialprojectile, addfog, enemydirection, exit, error, enter;
 		
 		/*
@@ -93,6 +93,8 @@ public class Application {
 				case addtrapgem:
 					addtrapgem(parancs);
 					break;
+				case addtrap:
+					addtrap(parancs);
 				case addenemy:
 					addenemy(parancs);
 					break;
@@ -150,15 +152,38 @@ public class Application {
 		else System.out.println("Invalid parameter");
 	}
 	public static void printstate(){
-
+		for(int i = 0;i<game.toronylista.size();i++){
+			int x = game.getCoord(game.toronylista.get(i).sajatMezo).x;
+			int y = game.getCoord(game.toronylista.get(i).sajatMezo).y;
+			System.out.println("Torony " + game.toronylista.get(i).id +" "+ x +" "+y) ;
+		}
+		
+		for(int i = 0;i<game.ellenseglista.size();i++){
+			
+			if(game.ellenseglista.get(i) instanceof Hobbit)
+			System.out.println("Hobbit " + game.ellenseglista.get(i).id);
+			if(game.ellenseglista.get(i) instanceof Ember)
+			System.out.println("Ember " + game.ellenseglista.get(i).id);
+			if(game.ellenseglista.get(i) instanceof Tunde)
+			System.out.println("Tunde " + game.ellenseglista.get(i).id);
+			if(game.ellenseglista.get(i) instanceof Torpe)
+			System.out.println("Torpe " + game.ellenseglista.get(i).id);
+		}
+		
+		for(int i = 0;i<game.akadalylista.size();i++){
+			System.out.println("Akadaly " + game.akadalylista.get(i).id);
+		}
+		
 	}
 	public static void tick(String args[]){
-			int count = Integer.parseInt(args[0]);
-			for(int i = 0;i<count;i++){
+			int count = Integer.parseInt(args[1]);
+			int i = 0;
+			for(i = 0;i<count;i++){
 				for(int j = 0; j < game.controller.aktiv.size();j++ ){
 					game.controller.aktiv.get(j).tick();
 				}
 			}
+			System.out.println(i + " tick megtortent");
 	}
 	public static void printpower(){
 		System.out.println("Varazsero "+ game.jatekter.felhasznalo.varazsero);
@@ -344,8 +369,8 @@ public class Application {
 	}
 	
 	public static void addenemy(String args[]){
-		int sor = Integer.parseInt(args[2]);
-		int oszlop = Integer.parseInt(args[3]);
+		int sor = Integer.parseInt(args[3]);
+		int oszlop = Integer.parseInt(args[4]);
 		Cella valasztott = game.jatekter.cellak.get(sor).get(oszlop);
 		if(!valasztott.mezovagyok())
 		{
@@ -359,31 +384,35 @@ public class Application {
 			{
 				case 0:
 					Hobbit h = new Hobbit((Ut)valasztott);
-					h.id=args[1];
+					h.id=args[2];
 					valasztott.ratesz(h);	
+					game.ellenseglista.add(h);
 					System.out.println("Ellenseg hozzaadva");
 					break;
 				case 1:
 					Ember e = new Ember((Ut)valasztott);
-					e.id=args[1];
+					e.id=args[2];
 					valasztott.ratesz(e);
+					game.ellenseglista.add(e);
 					System.out.println("Ellenseg hozzaadva");
 					break;
 				case 2:
 					Tunde t = new Tunde((Ut)valasztott);
-					t.id=args[1];
+					t.id=args[2];
 					valasztott.ratesz(t);
+					game.ellenseglista.add(t);
 					System.out.println("Ellenseg hozzaadva");
 					break;
 				case 3:
 					Torpe t1 = new Torpe((Ut)valasztott);
-					t1.id=args[1];
+					t1.id=args[2];
 					valasztott.ratesz(t1);
+					game.ellenseglista.add(t1);
 					System.out.println("Ellenseg hozzaadva");
 					break;
 				default: System.out.println("Bad parameter");
 			}
-			
+		
 		}
 		else
 		{
@@ -428,72 +457,85 @@ public class Application {
 	public static void enemydirection(String args[]){
 		boolean megvan = false;
 		int index = 0;
+		for(Ellenseg ell : game.ellenseglista){
+			if(ell.id.matches(args[1])){
+				index=game.ellenseglista.indexOf(ell);
+				megvan=true;
+			}
+		}
 		
-		while(megvan==false && index<game.ellenseglista.size())
+
+		if(megvan)
 		{
-			if(game.ellenseglista.get(index).id.matches(args[1]))
-			{
 				Ellenseg temp =game.ellenseglista.get(index);
 				
 				int irany;
-				if(args[1].matches("N")) 		irany=1;
-				else if(args[1].matches("S")) 	irany=2;
-				else if(args[1].matches("E")) 	irany=3;
-				else if(args[1].matches("W")) 	irany=4;
+				if(args[2].matches("N")) 		irany=1;
+				else if(args[2].matches("S")) 	irany=2;
+				else if(args[2].matches("E")) 	irany=3;
+				else if(args[2].matches("W")) 	irany=4;
 				else							irany=0;
-				
+				int x,y;
 				switch(irany)
 				{
 					case 1:
-							if(temp.sajatUt.szomszedok.get(0) instanceof Ut) // Ha felfele Út van
-							{
-								ArrayList<Ut> t= new ArrayList<Ut>();
-								t.add((Ut)temp.sajatUt.szomszedok.get(0));
-								temp.lepek(t);
-							}
-							else
-							{
-								System.out.printf("Invalid Parameter \n");
-							}
+						x = Application.game.getCoord(temp.sajatUt).x;
+						y = Application.game.getCoord(temp.sajatUt).y;
+						y--;
 							
-					case 2:
-						if(temp.sajatUt.szomszedok.get(1) instanceof Ut) 	// Ha lefelé út van
-						{
-							ArrayList<Ut> t=new ArrayList<Ut>();
-							t.add((Ut)temp.sajatUt.szomszedok.get(1));
-							temp.lepek(t);
+						for(Cella sj : temp.sajatUt.szomszedok){
+							if(Application.game.getCoord(sj).x == x && Application.game.getCoord(sj).y == y){
+								sj.ratesz(temp);
+								System.out.println("Ellenseg iranya beallitva");
+								return;
+							}
 						}
-						else
-						{
-							System.out.printf("Invalid Parameter \n");
-						}
+						System.out.println("Invalid Parameter");
 						break;
 							
+					case 2:
+						x = Application.game.getCoord(temp.sajatUt).x;
+						y = Application.game.getCoord(temp.sajatUt).y;
+						y++;
+						
+						for(Cella sj : temp.sajatUt.szomszedok){
+							if(Application.game.getCoord(sj).x == x && Application.game.getCoord(sj).y == y){
+								sj.ratesz(temp);
+								System.out.println("Ellenseg iranya beallitva");
+								return;
+							}
+						}
+						System.out.println("Invalid Parameter");
+						break;			
 						
 					case 3:
-						if(temp.sajatUt.szomszedok.get(2) instanceof Ut)	// Ha balra út van
-						{
-							ArrayList<Ut> t = new ArrayList<Ut>();
-							t.add((Ut)temp.sajatUt.szomszedok.get(2));
-							temp.lepek(t);
+						x = Application.game.getCoord(temp.sajatUt).x;
+						y = Application.game.getCoord(temp.sajatUt).y;
+						x--;
+						
+						for(Cella sj : temp.sajatUt.szomszedok){
+							if(Application.game.getCoord(sj).x == x && Application.game.getCoord(sj).y == y){
+								sj.ratesz(temp);
+								System.out.println("Ellenseg iranya beallitva");
+								return;
+							}
 						}
-						else
-						{
-							System.out.printf("Invalid Parameter \n");
-						}
+						System.out.println("Invalid Parameter");
 						break;
 						
 					case 4:
-						if(temp.sajatUt.szomszedok.get(3) instanceof Ut) 	//Ha jobbra út van
-						{
-							ArrayList<Ut> t = new ArrayList<Ut>();
-							t.add((Ut)temp.sajatUt.szomszedok.get(3));
-							temp.lepek(t);
+						x = Application.game.getCoord(temp.sajatUt).x;
+						y = Application.game.getCoord(temp.sajatUt).y;
+						x++;
+						
+						for(Cella sj : temp.sajatUt.szomszedok){
+							if(Application.game.getCoord(sj).x == x && Application.game.getCoord(sj).y == y){
+								sj.ratesz(temp);
+								System.out.println("Ellenseg iranya beallitva");
+								return;
+							}
 						}
-						else
-						{
-							System.out.printf("Invalid Parameter \n"); 
-						}
+						System.out.println("Invalid Parameter");
 						break;
 					case 0:
 					default:
@@ -501,20 +543,34 @@ public class Application {
 						break;
 				
 				}
-				
-				megvan = true;
-			}
-			else
-			{
-			index++;
-			}
 		}
-		if(!megvan)
-		{		
-			System.out.printf("Nem talal szomszedokat, vagy az ellenseget. \n"); 
-		}
+		else System.out.printf("Invalid Parameter \n");
+
 		
 	}
+	public static void addtrap(String[] args){
+		int sor = Integer.parseInt(args[2]);
+		int oszlop = Integer.parseInt(args[3]);
+		boolean joid = true;
+		
+		for(int i = 0;i<game.akadalylista.size();i++){
+			if(game.akadalylista.get(i).id.matches(args[1]))
+				joid = false;
+		}
+		
+		if(joid){
+			Akadaly uj = new Akadaly(args[1]);
+			game.akadalylista.add(uj);
+			Cella valasztott = game.jatekter.cellak.get(sor).get(oszlop);
+			if(!valasztott.mezovagyok())
+			game.jatekter.felhasznalo.ujAkadaly((Ut)valasztott, uj);
+				}
+		else{
+			System.out.println("Mar letezo ID");
+		}
+	}
+		
+
 	public static void exit(){
 			System.out.println("Szia!");
 			System.exit(0);
