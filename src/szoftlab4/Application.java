@@ -240,6 +240,8 @@ public class Application {
 		success = true;
 		}
 		
+		if(!success) System.out.println("Bad parameter");
+		
 	}
 	
 	public static void addtower(String args[]){
