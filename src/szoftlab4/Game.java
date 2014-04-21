@@ -8,6 +8,7 @@ public class Game {
 	public ArrayList<Torony> toronylista;
 	public ArrayList<Ellenseg> ellenseglista;
 	public ArrayList<Ut> utlista;
+	public ArrayList<Akadaly> akadalylista;
 
 	Game(){
 		jatekter = new Jatekter(new Jatekos());
@@ -15,5 +16,6 @@ public class Game {
 		toronylista = new ArrayList<Torony>();
 		ellenseglista = new ArrayList<Ellenseg>();
 		utlista = new ArrayList<Ut>();
+		akadalylista = new ArrayList<Akadaly>();
 	}
 }

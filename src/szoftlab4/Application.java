@@ -312,7 +312,35 @@ public class Application {
 	}
 	
 	public static void addtrapgem(String args[]){
-
+		boolean megvan = false;
+		int index = 0;
+		Lilavarazsko l = new Lilavarazsko();
+		if(game.jatekter.felhasznalo.varazskovek.contains(l))
+		{
+			
+			while(megvan == false && index < game.akadalylista.size())
+			{
+				if(game.akadalylista.get(index).id.equals(args[1]) )
+				{
+					game.akadalylista.get(index).addko(l);
+					System.out.printf("Varazsko hozzaadva \n");
+					megvan = true;
+					
+				}
+				else
+				{
+					index++;
+				}
+			}
+			if(megvan == false)
+			{
+				System.out.printf("Nem letezo ID \n");
+			}
+		}
+		else
+		{
+			System.out.printf("Nem letezo varazsko \n");
+		}
 	}
 	
 	public static void addenemy(String args[]){
