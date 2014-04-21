@@ -12,17 +12,22 @@ public class Jatekter {
 	}
 
 	public void betolt(int palyaSzam){
-		Log.log(LogType.CALL, this, "betolt()");
+		//Log.log(LogType.CALL, this, "betolt()");
 		
-		Log.log(LogType.RETURN, this, "void()");
+		//Log.log(LogType.RETURN, this, "void()");
+	}
+	public void betolt(String filename){
+		//Log.log(LogType.CALL, this, "betolt()");
+		
+		//Log.log(LogType.RETURN, this, "void()");
 	}
 	
 	 public int getAr(String koTipus){
-		  Log.log(LogType.CALL, this, "getAr()");
+		  //Log.log(LogType.CALL, this, "getAr()");
 		  
 		  int ar=0;
 		  
-		  Log.log(LogType.RETURN, ar, "getAr()");
+		  //Log.log(LogType.RETURN, ar, "getAr()");
 		  return ar;
 		 }
 }
