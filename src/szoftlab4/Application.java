@@ -309,12 +309,60 @@ public class Application {
 		if(success) System.out.println("Varazsko hozzaadva");
 		
 			
-	} 
+	}
+	
 	public static void addtrapgem(String args[]){
 
 	}
+	
 	public static void addenemy(String args[]){
-
+		int sor = Integer.parseInt(args[2]);
+		int oszlop = Integer.parseInt(args[3]);
+		Cella valasztott = game.jatekter.cellak.get(sor).get(oszlop);
+		if(!valasztott.mezovagyok())
+		{
+			int type = 0;
+			if(args[1].matches("hobbit")) type = 0;
+			else if(args[1].matches("ember")) type = 1;
+			else if(args[1].matches("tunder")) type = 2;
+			else if(args[1].matches("torpe")) type = 3;			
+			
+			switch(type)
+			{
+				case 0:
+					Hobbit h = new Hobbit((Ut)valasztott);
+					h.id=args[1];
+					valasztott.ratesz(h);	
+					System.out.println("Ellenseg hozzaadva");
+					break;
+				case 1:
+					Ember e = new Ember((Ut)valasztott);
+					e.id=args[1];
+					valasztott.ratesz(e);
+					System.out.println("Ellenseg hozzaadva");
+					break;
+				case 2:
+					Tunde t = new Tunde((Ut)valasztott);
+					t.id=args[1];
+					valasztott.ratesz(t);
+					System.out.println("Ellenseg hozzaadva");
+					break;
+				case 3:
+					Torpe t1 = new Torpe((Ut)valasztott);
+					t1.id=args[1];
+					valasztott.ratesz(t1);
+					System.out.println("Ellenseg hozzaadva");
+					break;
+				default: System.out.println("Bad parameter");
+			}
+			
+		}
+		else
+		{
+			System.out.printf(" Nem mezo, vagy valami baj van \n");
+		}
+			
+		
 	}
 	public static void addspecialprojectile(String args[]){
 		
@@ -355,13 +403,20 @@ public class Application {
 		
 		while(megvan==false && index<game.ellenseglista.size())
 		{
-			if(game.ellenseglista.get(index).id == args[0])
+			if(game.ellenseglista.get(index).id.matches(args[1]))
 			{
 				Ellenseg temp =game.ellenseglista.get(index);
 				
-				switch(args[1])
+				int irany;
+				if(args[1].matches("N")) 		irany=1;
+				else if(args[1].matches("S")) 	irany=2;
+				else if(args[1].matches("E")) 	irany=3;
+				else if(args[1].matches("W")) 	irany=4;
+				else							irany=0;
+				
+				switch(irany)
 				{
-					case "N":
+					case 1:
 							if(temp.sajatUt.szomszedok.get(0) instanceof Ut) // Ha felfele Út van
 							{
 								ArrayList<Ut> t= new ArrayList<Ut>();
@@ -373,7 +428,7 @@ public class Application {
 								System.out.printf("Invalid Parameter \n");
 							}
 							
-					case "S":
+					case 2:
 						if(temp.sajatUt.szomszedok.get(1) instanceof Ut) 	// Ha lefelé út van
 						{
 							ArrayList<Ut> t=new ArrayList<Ut>();
@@ -387,7 +442,7 @@ public class Application {
 						break;
 							
 						
-					case "E":
+					case 3:
 						if(temp.sajatUt.szomszedok.get(2) instanceof Ut)	// Ha balra út van
 						{
 							ArrayList<Ut> t = new ArrayList<Ut>();
@@ -400,7 +455,7 @@ public class Application {
 						}
 						break;
 						
-					case "W":
+					case 4:
 						if(temp.sajatUt.szomszedok.get(3) instanceof Ut) 	//Ha jobbra út van
 						{
 							ArrayList<Ut> t = new ArrayList<Ut>();
@@ -411,6 +466,10 @@ public class Application {
 						{
 							System.out.printf("Invalid Parameter \n"); 
 						}
+						break;
+					case 0:
+					default:
+						System.out.printf("Invalid Parameter \n");
 						break;
 				
 				}
