@@ -1,61 +1,55 @@
 package szoftlab4;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
-
-
+import java.util.ArrayList;
 
 public class Controller {
 	Jatekter jatekter;
-	Aktiv aktiv;
-	
-	public Controller(Jatekter ter){		// A Controller konstruktora
+	ArrayList<Aktiv> aktiv;
+
+	public Controller(Jatekter ter) { // A Controller konstruktora
 		jatekter = ter;
+		aktiv = new ArrayList<Aktiv>();
 	}
-	
-	public void indit(){			//Pálya kiválasztása, játékos felruházása varázserõvel
-		Log.log(LogType.CALL, this, "indit()");
+
+	public void indit() { // Pálya kiválasztása, játékos felruházása
+							// varázserõvel
+		
 		int palyaSzam = 0;
-		
-		Log.log(LogType.KERDES, null, "Hányas pályát töltsük be? [int]");
-		
-		try {
-		palyaSzam = Integer.parseInt(Log.br.readLine());
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-		}
-		
-		
-		
 		jatekter.betolt(palyaSzam);
 		jatekter.felhasznalo.varazserotKap(100);
 		startTick();
-		
-		Log.log(LogType.RETURN, this, "void");
-		
+
 	}
-	
-	public void startTick(){	//Tick indítása
-		Log.log(LogType.CALL, this, "startTick()");
-		
-		Log.log(LogType.RETURN, this, "void()");
-		
+
+	public void startTick() { // Tick indítása
+
+		for (Aktiv elem : aktiv) {
+			elem.tick();
+		}
+
+		try {
+			wait(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-	
-	public void meghaltam(int ertek){	// A játékos varázserõt kap
-		Log.log(LogType.CALL, this, "meghaltam()");
-		
+
+	public void meghaltam(int ertek) { // A játékos varázserõt kap
+
 		jatekter.felhasznalo.varazserotKap(ertek);
-		
-		Log.log(LogType.RETURN, this, "void");	
+
 	}
-	
-	//Függvény, aminek meghívásával jelezhetjük a játék végét. True-t kell neki átadni, ha a játékos nyert, 
-	//false-ot ha a játékos vesztett.
-	public void endgame(boolean nyerte){
-		
+
+	public void addAktiv(Aktiv a) {
+		aktiv.add(a);
+	}
+
+	// Függvény, aminek meghívásával jelezhetjük a játék végét. True-t kell neki
+	// átadni, ha a játékos nyert,
+	// false-ot ha a játékos vesztett.
+	public void endgame(boolean nyerte) {
+
 	}
 
 }
