@@ -51,9 +51,15 @@ public class Jatekos {
 	}
 
 	//Egy új Tornyot hozhatunk létre, ha van rá elég varázserõnk
-	public void ujTorony(Mezo valasztottMezo) {
-		valasztottMezo.ratesz(new Torony());
-		varazserotVeszit(50);
+	public void ujTorony(Mezo valasztottMezo, Torony ezt) {
+		
+		if(varazsero>50){
+			valasztottMezo.ratesz(ezt);
+			varazserotVeszit(50);
+			System.out.println("Torony letrehozva");
+		}else{
+			System.out.println("Nincs eleg varazsero");
+		}
 	}
 
 	public void kovetVesz(String koTipus) {

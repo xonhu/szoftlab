@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
  */
 public class Application {
 	
+	Game game = new Game();
 	private static Jatekos user = new Jatekos();
 	private static Jatekter palya = new Jatekter(user);
 	
@@ -139,7 +140,7 @@ public class Application {
 	default: System.out.println("Nincs ilyen parancs!");
 	}
 */	
-	Game game = new Game();
+	
 	
 	public static void loadmap(String args[]){
 		if(args.length > 1)	{
@@ -208,13 +209,62 @@ public class Application {
 
 	}
 	public static void buygem(String args[]){
-
+		
+		boolean success false;
+		if(args[0].matches("barna") && Game.jatekter.felhasznalo.varazsero>50){
+			Game.jatekter.felhasznalo.varazskovek.add(new Barnavarazsko());
+			success = true;
+		}
+		if(args[0].matches("kek") && Game.jatekter.felhasznalo.varazsero>50){
+			Game.jatekter.felhasznalo.varazskovek.add(new Kekvarazsko());
+		success = true;
+		}
+		if(args[0].matches("lila") && Game.jatekter.felhasznalo.varazsero>50){
+			Game.jatekter.felhasznalo.varazskovek.add(new Lilavarazsko());
+		success = true;
+        }
+		if(args[0].matches("narancs") && Game.jatekter.felhasznalo.varazsero>50){
+			Game.jatekter.felhasznalo.varazskovek.add(new Narancsvarazsko());
+		success = true;
+		}
+		if(args[0].matches("piros") && Game.jatekter.felhasznalo.varazsero>50){
+			Game.jatekter.felhasznalo.varazskovek.add(new Pirosvarazsko());
+		success = true;
+	    }
+		if(args[0].matches("sarga") && Game.jatekter.felhasznalo.varazsero>50){
+			Game.jatekter.felhasznalo.varazskovek.add(new Sargavarazsko());
+		success = true;
+	    }
+		if(args[0].matches("zold") && Game.jatekter.felhasznalo.varazsero>50){
+			Game.jatekter.felhasznalo.varazskovek.add(new Zoldvarazsko());
+		success = true;
+		}
+		
 	}
+	
 	public static void addtower(String args[]){
-
+		int sor = Integer.parseInt(args[1]);
+		int oszlop = Integer.parseInt(args[2]);
+		boolean joid = true;
+		
+		for(int i = 0;i<Game.toronylista.size();i++){
+			if(Game.toronylista.get(i).id.matches(args[0]))
+				joid = false;
+		}
+		
+		if(joid){
+			Torony uj = new Torony(args[0]);
+			Game.toronylista.add(uj);
+			Cella valasztott = Game.jatekter.cellak.get(sor).get(oszlop);
+			if(valasztott.mezovagyok())
+			Game.jatekter.felhasznalo.ujTorony((Mezo)valasztott, uj);
+				}
+		else{
+			System.out.println("Mar letezo ID");
+		}
 	}
 	public static void addtowergem(String args[]){
-
+			
 	} 
 	public static void addtrapgem(String args[]){
 

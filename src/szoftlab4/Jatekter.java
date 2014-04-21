@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Jatekter {
 
 	//A játéktér celláit tartalmazza
-	private ArrayList<ArrayList<Cella>> cellak;
+	public ArrayList<ArrayList<Cella>> cellak;
 	
 	//Az aktuális játékost tartalmazza
 	public Jatekos felhasznalo;
