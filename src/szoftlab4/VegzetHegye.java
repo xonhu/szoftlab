@@ -13,6 +13,10 @@ public class VegzetHegye implements Utravalo {
 		sajatUt = null;
 		elet = 500;
 	}
+	public VegzetHegye(Cella sj){
+		sajatUt = (Ut)sj;
+		elet = 500;
+	}
 	
 	//A torony életét lecsökkkenti a paraméterben kapott mennyiséggel
 	//Amennyiben a torony élete negatív tartományba esik, meghívja a meghal() függvényt.
