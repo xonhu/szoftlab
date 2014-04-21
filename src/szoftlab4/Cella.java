@@ -3,55 +3,61 @@ package szoftlab4;
 import java.util.ArrayList;
 
 public class Cella {
-	public ArrayList<Cella> szomszedok;	// Lista a szomszéd cellákról
-	private Boolean boolean1;
+	
+	// Lista amely tartalmazza a szomszéd cellákat
+	public ArrayList<Cella> szomszedok;	
 
+	//A Cella osztály konstruktora
 	public Cella()
 	{
 		szomszedok = new ArrayList<Cella>();
 	}
 
-	public Cella(ArrayList<Cella> l){		// A Cella konstruktora
+	//A Cella paraméteres konstruktora, amelynek a szomszédait kell átadni
+	public Cella(ArrayList<Cella> l){		
 		szomszedok = l;
 	}
 
-	public void ratesz(Mezorevalo elem) // Cellára tesz mezõrevaló elemet (itt nem használt)
+	// Cellára tesz mezõrevaló elemet. Mezo osztályban felülírva!
+	public void ratesz(Mezorevalo elem) 
 	{
 
 	}
 
-	public void ratesz(Utravalo elem) // Cellára tesz Útravaló elemet (itt nem használt)
+	//Cellára rátesz egy Útravaló elemet. Ut osztályban felülírva!
+	public void ratesz(Utravalo elem) 
 	{
 
 	}
 
-	public void levesz(Mezorevalo elem) // Cellról levesz mezõrevaló elemet (itt nem használt)
+	// Cellról levesz egy mezõrevaló elemet. Mezo osztályban felülírva!
+	public void levesz(Mezorevalo elem) 
 	{
 
 	}
 
-	public void levesz(Utravalo elem) // Cellról levesz útravaló elemet (itt nem használt)
+	// Cellról levesz egy útravaló elemet. Ut osztályban felülírva!
+	public void levesz(Utravalo elem) 
 	{
 
 	}
 
-
-
-	public ArrayList<Ellenseg> kivanrajtam() // Visszaad egy Ellenséglistát azokról az ellenségekrõl akik az adott cellán(úton) vannak (itt nem használt)
+	//Visszaad egy Ellenséglistát azokról az ellenségekrõl akik az adott cellán(úton) vannak. Ut osztályban felülírva!
+	public ArrayList<Ellenseg> kivanrajtam() 
 	{
 		return null;
 	}
 
-	public ArrayList<Cella> getSzomszedok() // Visszaadja a szomszéd cellák listáját
+	//Visszaadja a szomszéd cellák listáját
+	public ArrayList<Cella> getSzomszedok() 
 	{
 		return szomszedok;
 	}
 
-
-	public boolean mezovagyok() // igazzal tér vissza, ha mezõ, hamissal ha út (itt nem használt)
+	//Igazzal tér vissza, ha mezõ, hamissal ha út. Leszármazott osztályokban felülírva.
+	public boolean mezovagyok() 
 	{
-		boolean1 = (Boolean) null;
-		return boolean1;		
+		return false;		
 	}
 
 

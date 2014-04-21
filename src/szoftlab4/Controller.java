@@ -3,24 +3,29 @@ package szoftlab4;
 import java.util.ArrayList;
 
 public class Controller {
+	
+	//Az aktív játékteret tartalmazza
 	Jatekter jatekter;
+	
+	//Az Aktív elemeket tartalmazza, amelyeknek szüksége van tick-re.
 	ArrayList<Aktiv> aktiv;
 
-	public Controller(Jatekter ter) { // A Controller konstruktora
+	//A Controller osztály konstruktora
+	public Controller(Jatekter ter) { 
 		jatekter = ter;
 		aktiv = new ArrayList<Aktiv>();
 	}
 
-	public void indit() { // Pálya kiválasztása, játékos felruházása
-							// varázserõvel
-		
+	// Pálya kiválasztása, játékos felruházása varázserõvel
+	public void indit() { 
 		int palyaSzam = 0;
-		jatekter.betolt(palyaSzam);
-		jatekter.felhasznalo.varazserotKap(100);
-		startTick();
+			jatekter.betolt(palyaSzam);
+			jatekter.felhasznalo.varazserotKap(100);
+			startTick();
 
 	}
 
+	//TODO: Ez nem egy szálat fog elindítani?
 	public void startTick() { // Tick indítása
 
 		for (Aktiv elem : aktiv) {
@@ -36,12 +41,14 @@ public class Controller {
 		}
 	}
 
-	public void meghaltam(int ertek) { // A játékos varázserõt kap
+	//Egy ellenség halála után, a játékos varázserõt kap
+	public void meghaltam(int ertek) { 
 
 		jatekter.felhasznalo.varazserotKap(ertek);
 
 	}
 
+	//Egy aktív pályaelemet hozzáad az Aktív listához
 	public void addAktiv(Aktiv a) {
 		aktiv.add(a);
 	}
@@ -49,6 +56,7 @@ public class Controller {
 	// Függvény, aminek meghívásával jelezhetjük a játék végét. True-t kell neki
 	// átadni, ha a játékos nyert,
 	// false-ot ha a játékos vesztett.
+	// TODO: Ez értesíti majd a Game osztályt, ha vége a játéknak?
 	public void endgame(boolean nyerte) {
 
 	}

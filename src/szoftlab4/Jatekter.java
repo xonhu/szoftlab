@@ -7,18 +7,24 @@ import java.util.ArrayList;
 
 public class Jatekter {
 
+	//A játéktér celláit tartalmazza
 	private ArrayList<ArrayList<Cella>> cellak;
+	
+	//Az aktuális játékost tartalmazza
 	public Jatekos felhasznalo;
 
+	//A Jatekter osztály konstruktora. Paraméterként egy játékost vár.
 	public Jatekter(Jatekos user) {
 		felhasznalo = user;
 		cellak = new ArrayList<ArrayList<Cella>>();
 	}
 
+	//Egy pálya betöltésére való függvény. Pályaszámot vár.
 	public void betolt(int palyaSzam) {
 
 	}
 
+	//Egy pálya betöltésére való függvény. A pályát tartalmazó fájl nevét várja.
 	public void betolt(String filename) {
 
 		BufferedReader br = null;
@@ -28,15 +34,16 @@ public class Jatekter {
 
 			String line = br.readLine();
 
-			// az elsõ sorból beolvasom a pálya méreteit
+			//Az elsõ sorból beolvassa a pálya méreteit
+			//TODO: Akkor is mûködik, hogyha kétszámjegyû a pálya mérete?
 			int sizeI = Character.getNumericValue(line.charAt(0));
 			int sizeJ = Character.getNumericValue(line.charAt(2));
 			line = br.readLine();
 
 			int currentLineNumber = 0;
 
-			// olvasom a fájlból a pálya sorait
-			// TODO: Végzethegye, power, szomszédok beállítása
+			//Olvassa a fájlból a pálya sorait
+			//TODO: Végzethegye, power, szomszédok beállítása
 			while (line != null) {
 
 				cellak.add(new ArrayList<Cella>());

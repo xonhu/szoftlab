@@ -13,6 +13,7 @@ public class Torpe extends Ellenseg {
 		ertek = 140;
 	}
 	
+	//Tick hatására, a Törpe bizonyos valószínûséggel lépni fog. (1/5)
 	public void tick(){
 		
 		 Random randomGenerator = new Random();
@@ -26,6 +27,7 @@ public class Torpe extends Ellenseg {
 		
 	}
 	
+	//Ha lövés éri az ellenséget, akkor a rá vonatkozó értékkel csökken az élete
 	public void sebez(Lovedek lovedek){
 		elet = elet - lovedek.sebzesTorpe;
 	}

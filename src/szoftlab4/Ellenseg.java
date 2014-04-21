@@ -60,6 +60,7 @@ public class Ellenseg implements Utravalo, Aktiv {
 	
 	//A torony hívja meg, amennyiben le akarja lõni az ellenséget
 	//Az alosztályokban felül kell írni, a megfelelõ logikával!!!
+	//TODO: AZ alosztályokban meg kell valósítani hogy ha hasító lövedéket kap, akkor ketté váljon
 	public void sebez(Lovedek lovedek){
 		
 	}
