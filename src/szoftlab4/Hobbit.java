@@ -11,6 +11,7 @@ public class Hobbit extends Ellenseg {
 		ertek = 110;
 	}
 	
+	//Tick hatására a Hobbit bizonyos valószínûséggel lépni fog (1/3)
 	public void tick(){
 		
 		 Random randomGenerator = new Random();
@@ -24,6 +25,7 @@ public class Hobbit extends Ellenseg {
 		
 	}
 	
+	//Paraméterként kap egy lövedéket, és a rá vonatkozó értékkel sebzi magát
 	public void sebez(Lovedek lovedek){
 		elet = elet - lovedek.sebzesHobbit;
 	}

@@ -11,6 +11,7 @@ public class Ember extends Ellenseg {
 		ertek = 100;
 	}
 
+	//Tick hatására az Ember bizonyos valószínûséggel lépni fog (1/3)
 	public void tick(){
 		
 		 Random randomGenerator = new Random();
@@ -24,8 +25,9 @@ public class Ember extends Ellenseg {
 		
 	}
 	
+	//Paraméterként kap egy lövedéket, és a rá vonatkozó értékkel sebzi magát
 	public void sebez(Lovedek lovedek){
-		elet = elet - lovedek.sebzesEmber;
+		 elet = elet - lovedek.sebzesEmber;
 	}
 	
 	
