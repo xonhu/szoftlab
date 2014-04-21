@@ -12,6 +12,9 @@ public class Ut extends Cella{
 		rajtamvan = new ArrayList<Utravalo>();
 		szomszedok = l;
 	}
+	public Ut(){
+		rajtamvan = new ArrayList<Utravalo>();
+	}
 
 	public void ratesz(Utravalo elem)				//Cellára tesz Útravaló elemet 
 	{	
