@@ -5,14 +5,25 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class EllensegKeszito implements Aktiv {
+	
+		//Tartalmazza azokat az utakat, ahová egy ellenség lerakható
 		private ArrayList<Ut> belepoUtak;
 		
+		//Az EllensegKeszito paraméteres konstruktora. Át kell neki adni a belépõutak listáját.
 		public EllensegKeszito(ArrayList<Ut> utak){
 			belepoUtak = utak;
 		}
 		
+		
+		//Tick hatására választ egy utat, majd bizonyos valószínûséggel lerak oda egy
+		//véletlenül kiválasztott ellenséget
 		public void tick(){  
 	         
+			Random randomGenerator = new Random();
+			int index = randomGenerator.nextInt(10);
+			
+			if(index == 1){
+			
 			String ellenseg;
 			
 			Ut valasztott = utatValaszt();
@@ -27,8 +38,10 @@ public class EllensegKeszito implements Aktiv {
 			else
 				valasztott.ratesz(new Torpe(valasztott));
 			
+				}
 		}
 		
+		//Véletlenszerûen kiválaszt egy ellenségtípust, és visszaadja azt String-ként
 		public String getEllensegTipus(){
 			String mitad = null;			
 			
@@ -46,6 +59,8 @@ public class EllensegKeszito implements Aktiv {
 			return mitad;
 		}
 		
+		
+		//Véletlenszerûen kiválaszt egyet a belépõutak listájából, és visszaadja azt
 		public Ut utatValaszt(){
 			Random randomGenerator = new Random();
 			int index = randomGenerator.nextInt(belepoUtak.size());

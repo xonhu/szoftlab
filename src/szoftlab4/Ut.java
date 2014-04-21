@@ -4,35 +4,66 @@ import java.util.ArrayList;
 
 public class Ut extends Cella{
 
+	//Tartalmazza azokat az elemeket, amik rajta helyezkednek el
 	public ArrayList<Utravalo> rajtamvan;
-	public Akadaly akadaly;
-	ArrayList<Cella> szomszedok;
 	
+	//Az úton található akadály
+	public Akadaly akadaly;
+	
+	//Szomszéd cellákat tartalmazza
+	ArrayList<Cella> szomszedok;
+
+	//Ut osztály paraméteres konstruktora
 	public Ut(ArrayList<Cella> l){
 		rajtamvan = new ArrayList<Utravalo>();
 		szomszedok = l;
 	}
 	
-	public void ratesz(Utravalo elem)				//Cellára tesz Útravaló elemet 
+	//Ut osztály paraméter nélküli konstruktora
+	public Ut(){
+		rajtamvan = new ArrayList<Utravalo>();
+		szomszedok = null;
+	}
+
+	//Az útra teszi a megadott elemet
+	public void ratesz(Utravalo elem)				
 	{	
 		rajtamvan.add(elem);
 		elem.init(this);
 	}
-	
-	public void levesz(Utravalo elem)				// Cellról levesz mezõrevaló elemet 
+
+	//Az útról leveszi a paraméterként átadott elemet
+	public void levesz(Utravalo elem)				
 	{
 		rajtamvan.remove(elem);
 	}
-	
-	public boolean mezovagyok()						// Igazzal tér vissza, ha mezõ, hamissal ha út 	
+
+	//Igazzal tér vissza, ha mezõ, hamissal ha út
+	public boolean mezovagyok()						  	
 	{
 		return false;								// Mert bizony szegény Cella nem Mezõ, hanem Út :'( 
 	}
 	
-	public ArrayList<Ut> lepnek()					// A közelben lévõ utak listájával tér vissza
+	//Visszaadja azokat az ellenségeket, akik rajta helyezkednek el.
+	public ArrayList<Ellenseg> kivanrajtam()
 	{
-		ArrayList<Ut> temp = null;
-		// TODO: Ugyan az a helyzet mint a Mezo osztály közelbenvan fv-ével... a  szomszédok listája Cellákat tárol, így nem lehet Ut-ra szûrni.. :(
+		ArrayList<Ellenseg> temp = new ArrayList<Ellenseg>();
+		for(int i = 0;i<rajtamvan.size();i++)
+		{	if(rajtamvan.get(i) instanceof Ellenseg)
+				temp.add((Ellenseg)rajtamvan.get(i));
+		}
+		return temp;
+	}
+
+	//A közelben lévõ utak listájával tér vissza, ahová az ellenség léphet
+	public ArrayList<Ut> lepnek()					
+	{
+		ArrayList<Ut> temp = new ArrayList<Ut>();
+		ArrayList<Cella> cellak = getSzomszedok();
+		for(int i = 0; i<cellak.size();i++){
+			if(cellak.get(i) instanceof Ut)
+				temp.add((Ut)cellak.get(i));
+		}
 		return temp;
 	}
 

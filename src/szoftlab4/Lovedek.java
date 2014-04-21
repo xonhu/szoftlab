@@ -7,5 +7,12 @@ public class Lovedek {
 	public int sebzesTorpe = 25;
 	public int sebzesTunde = 10;
 	public int sebzesHobbit = 40; 
+	public boolean hasit;
+	
+	
+	//Visszaadja, hogy a lövedék hasítólövedék-e.
+	public boolean getHasit(){
+		return hasit;
+	}
 
 }
