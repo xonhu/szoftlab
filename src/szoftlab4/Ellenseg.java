@@ -29,7 +29,6 @@ public class Ellenseg implements Utravalo, Aktiv {
 	//Leszármazott osztályban felülírni!
 	public void tick(){
 		
-	//TODO: Ide kell egy logika, ami megmondja hogy az ellenség a körben léphet-e, lépni szeretne.
 		if(false){
 			ArrayList<Ut> lehetsegesutak = sajatUt.lepnek();
 			lepek(lehetsegesutak);
