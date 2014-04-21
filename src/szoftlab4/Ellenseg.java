@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 public class Ellenseg implements Utravalo, Aktiv {
 	
+	public String id;
+	
 	//Tartalmazza hogy az Elenség éppen melyik mezõn van rajta
 	protected Ut sajatUt;
 	
@@ -60,7 +62,7 @@ public class Ellenseg implements Utravalo, Aktiv {
 	
 	//A torony hívja meg, amennyiben le akarja lõni az ellenséget
 	//Az alosztályokban felül kell írni, a megfelelõ logikával!!!
-	//TODO: AZ alosztályokban meg kell valósítani hogy ha hasító lövedéket kap, akkor ketté váljon
+	//TODO: Az alosztályokban meg kell valósítani hogy ha hasító lövedéket kap, akkor ketté váljon
 	public void sebez(Lovedek lovedek){
 		
 	}

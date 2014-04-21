@@ -5,10 +5,10 @@ import java.util.ArrayList;
 public class Jatekos {
 	
 	//Tárolja a játékos varázserejét
-	private int varazsero;
+	public int varazsero;
 	
 	//A játékos birtokában léõv varázsköveket tartalmazza
-	private ArrayList<Varazsko> varazskovek;
+	public ArrayList<Varazsko> varazskovek;
 
 	//A Jatekos osztály konstruktora
 	public Jatekos() {

@@ -138,7 +138,8 @@ public class Application {
 	case 11: System.out.println("Kilépés"); break;
 	default: System.out.println("Nincs ilyen parancs!");
 	}
-*/		
+*/	
+	Game game = new Game();
 	
 	public static void loadmap(String args[]){
 		if(args.length > 1)	{
@@ -151,12 +152,59 @@ public class Application {
 
 	}
 	public static void tick(String args[]){
-
+			int count = Integer.parseInt(args[0]);
+			for(int i = 0;i<count;i++){
+				for(int j = 0; j < Game.controller.aktiv.size();j++ ){
+					Game.controller.aktiv.get(j).tick();
+				}
+			}
 	}
 	public static void printpower(){
+		System.out.println("Varazsero "+ Game.jatekter.felhasznalo.varazsero);
 
 	}
 	public static void printgems(){
+		
+		int barna = 0;
+		int sarga = 0;
+		int narancs = 0;
+		int kek = 0;
+		int piros = 0;
+		int zold = 0;
+		int lila = 0;
+		
+		for(int i = 0;i<Game.jatekter.felhasznalo.varazskovek.size();i++){
+			if(Game.jatekter.felhasznalo.varazskovek.get(i) instanceof Barnavarazsko)
+				barna++;
+			if(Game.jatekter.felhasznalo.varazskovek.get(i) instanceof Sargavarazsko)
+				sarga++;
+			if(Game.jatekter.felhasznalo.varazskovek.get(i) instanceof Narancsvarazsko)
+				narancs++;
+			if(Game.jatekter.felhasznalo.varazskovek.get(i) instanceof Kekvarazsko)
+				kek++;
+			if(Game.jatekter.felhasznalo.varazskovek.get(i) instanceof Pirosvarazsko)
+				piros++;
+			if(Game.jatekter.felhasznalo.varazskovek.get(i) instanceof Zoldvarazsko)
+				zold++;
+			if(Game.jatekter.felhasznalo.varazskovek.get(i) instanceof Lilavarazsko)
+				lila++;
+		}
+		
+			if(barna != 0)
+				System.out.println("Barnavarazsko" + barna);
+			if(kek != 0)
+				System.out.println("Kekvarazsko" + kek);
+			if(lila != 0)
+				System.out.println("Lilavarazsko" + lila);
+			if(narancs != 0)
+				System.out.println("Narancsvarazsko" + narancs);
+			if(piros != 0)
+				System.out.println("Pirosvarazsko" + piros);
+			if(sarga!= 0)
+				System.out.println("Sargavarazsko" + sarga);
+			if(zold != 0)
+				System.out.println("Zoldvarazsko" + zold);
+			
 
 	}
 	public static void buygem(String args[]){
