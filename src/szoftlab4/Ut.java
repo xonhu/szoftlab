@@ -34,8 +34,12 @@ public class Ut extends Cella{
 
 	public ArrayList<Ut> lepnek()					// A közelben lévõ utak listájával tér vissza
 	{
-		ArrayList<Ut> temp = null;
-		// TODO: Ugyan az a helyzet mint a Mezo osztály közelbenvan fv-ével... a  szomszédok listája Cellákat tárol, így nem lehet Ut-ra szûrni.. :(
+		ArrayList<Ut> temp = new ArrayList<Ut>();
+		ArrayList<Cella> cellak = getSzomszedok();
+		for(int i = 0; i<cellak.size();i++){
+			if(cellak.get(i) instanceof Ut)
+				temp.add((Ut)cellak.get(i));
+		}
 		return temp;
 	}
 
