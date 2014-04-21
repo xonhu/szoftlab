@@ -16,10 +16,12 @@ public class Torony implements Aktiv, Mezorevalo {
 		private boolean kodos;
 		ArrayList<Toronykovek> kovek;
 		public Kod kod;
+		boolean specprojectile;
 	
 //Torony publikus konstruktora
 		Torony(){
 			hatotav=1;
+			specprojectile = false;
 			tuzgyak=10;
 			sebzes=1;
 			counter = 0;
@@ -94,11 +96,11 @@ public class Torony implements Aktiv, Mezorevalo {
 			lov.sebzesHobbit += (barna*10);
 			lov.sebzesTunde += (narancs*10);
 			lov.sebzesTorpe += (piros*10);
-			if(index == 1)
+			if(index == 1 || specprojectile)
 				lov.hasit = true;
 			else 
 				lov.hasit = false;
-			
+			specprojectile = false;
 			return lov;
 		}
 		

@@ -3,6 +3,7 @@ package szoftlab4;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 
 /*
@@ -244,17 +245,17 @@ public class Application {
 	}
 	
 	public static void addtower(String args[]){
-		int sor = Integer.parseInt(args[1]);
-		int oszlop = Integer.parseInt(args[2]);
+		int sor = Integer.parseInt(args[2]);
+		int oszlop = Integer.parseInt(args[3]);
 		boolean joid = true;
 		
 		for(int i = 0;i<game.toronylista.size();i++){
-			if(game.toronylista.get(i).id.matches(args[0]))
+			if(game.toronylista.get(i).id.matches(args[1]))
 				joid = false;
 		}
 		
 		if(joid){
-			Torony uj = new Torony(args[0]);
+			Torony uj = new Torony(args[1]);
 			game.toronylista.add(uj);
 			Cella valasztott = game.jatekter.cellak.get(sor).get(oszlop);
 			if(valasztott.mezovagyok())
@@ -316,6 +317,17 @@ public class Application {
 
 	}
 	public static void addspecialprojectile(String args[]){
+		
+		if(args.length == 1){
+			Torony ebben = null ;
+			for(int i = 0; i < game.toronylista.size(); i++){
+				if(args[1].matches(game.toronylista.get(i).id));
+					ebben = game.toronylista.get(i);
+			}
+		ebben.specprojectile = true;
+		System.out.println("Specialis lovedek hozzaadva");
+			
+		}else System.out.println("Bad parameters");
 
 	}
 	public static void addfog(String args[]){
@@ -338,7 +350,83 @@ public class Application {
 			System.out.println("Nem letezo ID");
 	}
 	public static void enemydirection(String args[]){
-
+		boolean megvan = false;
+		int index = 0;
+		
+		while(megvan==false && index<game.ellenseglista.size())
+		{
+			if(game.ellenseglista.get(index).id == args[0])
+			{
+				Ellenseg temp =game.ellenseglista.get(index);
+				
+				switch(args[1])
+				{
+					case "N":
+							if(temp.sajatUt.szomszedok.get(0) instanceof Ut) // Ha felfele Út van
+							{
+								ArrayList<Ut> t= new ArrayList<Ut>();
+								t.add((Ut)temp.sajatUt.szomszedok.get(0));
+								temp.lepek(t);
+							}
+							else
+							{
+								System.out.printf("Invalid Parameter \n");
+							}
+							
+					case "S":
+						if(temp.sajatUt.szomszedok.get(1) instanceof Ut) 	// Ha lefelé út van
+						{
+							ArrayList<Ut> t=new ArrayList<Ut>();
+							t.add((Ut)temp.sajatUt.szomszedok.get(1));
+							temp.lepek(t);
+						}
+						else
+						{
+							System.out.printf("Invalid Parameter \n");
+						}
+						break;
+							
+						
+					case "E":
+						if(temp.sajatUt.szomszedok.get(2) instanceof Ut)	// Ha balra út van
+						{
+							ArrayList<Ut> t = new ArrayList<Ut>();
+							t.add((Ut)temp.sajatUt.szomszedok.get(2));
+							temp.lepek(t);
+						}
+						else
+						{
+							System.out.printf("Invalid Parameter \n");
+						}
+						break;
+						
+					case "W":
+						if(temp.sajatUt.szomszedok.get(3) instanceof Ut) 	//Ha jobbra út van
+						{
+							ArrayList<Ut> t = new ArrayList<Ut>();
+							t.add((Ut)temp.sajatUt.szomszedok.get(3));
+							temp.lepek(t);
+						}
+						else
+						{
+							System.out.printf("Invalid Parameter \n"); 
+						}
+						break;
+				
+				}
+				
+				megvan = true;
+			}
+			else
+			{
+			index++;
+			}
+		}
+		if(!megvan)
+		{		
+			System.out.printf("Nem talal szomszedokat, vagy az ellenseget. \n"); 
+		}
+		
 	}
 	public static void exit(){
 			System.out.println("Szia!");
