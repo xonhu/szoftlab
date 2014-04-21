@@ -144,13 +144,12 @@ public class Application {
 	
 	public static void loadmap(String args[]){
 		if(args.length > 1)	{
-			System.out.println("Betoltes: " + args[1]);
 			palya.betolt(args[1]);
+			System.out.println("Map loaded");
 			}
 		else System.out.println("Invalid parameter");
 	}
 	public static void printstate(){
-
 	}
 	public static void tick(String args[]){
 			int count = Integer.parseInt(args[0]);
