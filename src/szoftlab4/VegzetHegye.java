@@ -13,6 +13,10 @@ public class VegzetHegye implements Utravalo {
 		sajatUt = null;
 		elet = 500;
 	}
+	public VegzetHegye(Cella sj){
+		sajatUt = (Ut)sj;
+		elet = 500;
+	}
 	
 	//A torony életét lecsökkkenti a paraméterben kapott mennyiséggel
 	//Amennyiben a torony élete negatív tartományba esik, meghívja a meghal() függvényt.
@@ -25,7 +29,7 @@ public class VegzetHegye implements Utravalo {
 	//Akkor hívódik meg, hogyha a torony ereje annyira lecsökken, hogy a toronynak el kell
 	//pusztulnia
 	public void meghal(){
-		Game.controller.endgame(true);
+		Application.game.controller.endgame(true);
 	}
 	
 	

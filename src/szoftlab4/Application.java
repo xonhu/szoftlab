@@ -3,6 +3,7 @@ package szoftlab4;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 
 /*
@@ -10,8 +11,8 @@ import java.io.InputStreamReader;
  */
 public class Application {
 	
-	private static Jatekos user = new Jatekos();
-	private static Jatekter palya = new Jatekter(user);
+	public static Game game = new Game();
+
 	
 	/*
 	 *	Prototípus konzolos felületének parancsai 
@@ -139,12 +140,12 @@ public class Application {
 	default: System.out.println("Nincs ilyen parancs!");
 	}
 */	
-	Game game = new Game();
+	
 	
 	public static void loadmap(String args[]){
 		if(args.length > 1)	{
 			System.out.println("Betoltes: " + args[1]);
-			palya.betolt(args[1]);
+			Application.game.jatekter.betolt(args[1]);
 			}
 		else System.out.println("Invalid parameter");
 	}
@@ -154,13 +155,13 @@ public class Application {
 	public static void tick(String args[]){
 			int count = Integer.parseInt(args[0]);
 			for(int i = 0;i<count;i++){
-				for(int j = 0; j < Game.controller.aktiv.size();j++ ){
-					Game.controller.aktiv.get(j).tick();
+				for(int j = 0; j < game.controller.aktiv.size();j++ ){
+					game.controller.aktiv.get(j).tick();
 				}
 			}
 	}
 	public static void printpower(){
-		System.out.println("Varazsero "+ Game.jatekter.felhasznalo.varazsero);
+		System.out.println("Varazsero "+ game.jatekter.felhasznalo.varazsero);
 
 	}
 	public static void printgems(){
@@ -173,20 +174,20 @@ public class Application {
 		int zold = 0;
 		int lila = 0;
 		
-		for(int i = 0;i<Game.jatekter.felhasznalo.varazskovek.size();i++){
-			if(Game.jatekter.felhasznalo.varazskovek.get(i) instanceof Barnavarazsko)
+		for(int i = 0;i<game.jatekter.felhasznalo.varazskovek.size();i++){
+			if(game.jatekter.felhasznalo.varazskovek.get(i) instanceof Barnavarazsko)
 				barna++;
-			if(Game.jatekter.felhasznalo.varazskovek.get(i) instanceof Sargavarazsko)
+			if(game.jatekter.felhasznalo.varazskovek.get(i) instanceof Sargavarazsko)
 				sarga++;
-			if(Game.jatekter.felhasznalo.varazskovek.get(i) instanceof Narancsvarazsko)
+			if(game.jatekter.felhasznalo.varazskovek.get(i) instanceof Narancsvarazsko)
 				narancs++;
-			if(Game.jatekter.felhasznalo.varazskovek.get(i) instanceof Kekvarazsko)
+			if(game.jatekter.felhasznalo.varazskovek.get(i) instanceof Kekvarazsko)
 				kek++;
-			if(Game.jatekter.felhasznalo.varazskovek.get(i) instanceof Pirosvarazsko)
+			if(game.jatekter.felhasznalo.varazskovek.get(i) instanceof Pirosvarazsko)
 				piros++;
-			if(Game.jatekter.felhasznalo.varazskovek.get(i) instanceof Zoldvarazsko)
+			if(game.jatekter.felhasznalo.varazskovek.get(i) instanceof Zoldvarazsko)
 				zold++;
-			if(Game.jatekter.felhasznalo.varazskovek.get(i) instanceof Lilavarazsko)
+			if(game.jatekter.felhasznalo.varazskovek.get(i) instanceof Lilavarazsko)
 				lila++;
 		}
 		
@@ -208,31 +209,315 @@ public class Application {
 
 	}
 	public static void buygem(String args[]){
-
+		
+		boolean success = false;
+		if(args[0].matches("barna") && game.jatekter.felhasznalo.varazsero>50){
+			game.jatekter.felhasznalo.varazskovek.add(new Barnavarazsko());
+			success = true;
+		}
+		if(args[0].matches("kek") && game.jatekter.felhasznalo.varazsero>50){
+			game.jatekter.felhasznalo.varazskovek.add(new Kekvarazsko());
+		success = true;
+		}
+		if(args[0].matches("lila") && game.jatekter.felhasznalo.varazsero>50){
+			game.jatekter.felhasznalo.varazskovek.add(new Lilavarazsko());
+		success = true;
+        }
+		if(args[0].matches("narancs") && game.jatekter.felhasznalo.varazsero>50){
+			game.jatekter.felhasznalo.varazskovek.add(new Narancsvarazsko());
+		success = true;
+		}
+		if(args[0].matches("piros") && game.jatekter.felhasznalo.varazsero>50){
+			game.jatekter.felhasznalo.varazskovek.add(new Pirosvarazsko());
+		success = true;
+	    }
+		if(args[0].matches("sarga") && game.jatekter.felhasznalo.varazsero>50){
+			game.jatekter.felhasznalo.varazskovek.add(new Sargavarazsko());
+		success = true;
+	    }
+		if(args[0].matches("zold") && game.jatekter.felhasznalo.varazsero>50){
+			game.jatekter.felhasznalo.varazskovek.add(new Zoldvarazsko());
+		success = true;
+		}
+		
+		if(!success) System.out.println("Bad parameter");
+		
 	}
+	
 	public static void addtower(String args[]){
-
+		int sor = Integer.parseInt(args[2]);
+		int oszlop = Integer.parseInt(args[3]);
+		boolean joid = true;
+		
+		for(int i = 0;i<game.toronylista.size();i++){
+			if(game.toronylista.get(i).id.matches(args[1]))
+				joid = false;
+		}
+		
+		if(joid){
+			Torony uj = new Torony(args[1]);
+			game.toronylista.add(uj);
+			Cella valasztott = game.jatekter.cellak.get(sor).get(oszlop);
+			if(valasztott.mezovagyok())
+			game.jatekter.felhasznalo.ujTorony((Mezo)valasztott, uj);
+				}
+		else{
+			System.out.println("Mar letezo ID");
+		}
 	}
 	public static void addtowergem(String args[]){
-
-	} 
-	public static void addtrapgem(String args[]){
-
+		int id = 0;
+		boolean success = false;
+		Torony erre = null;
+		for(int i = 0;i<game.toronylista.size();i++){
+			if(game.toronylista.get(i).id.matches(args[1]))
+				id = Integer.parseInt(game.toronylista.get(i).id);
+				erre = game.toronylista.get(i);
+		}
+		if(id == 0){
+			System.out.println("Nem letezo ID");
+		}
+		
+		if(erre != null){
+		if(args[2].matches("barna")){
+			game.jatekter.felhasznalo.fejleszt(erre, new Barnavarazsko());
+			success = true;
+		}
+		if(args[2].matches("kek")){
+			game.jatekter.felhasznalo.fejleszt(erre, new Kekvarazsko());
+		success = true;
+        }
+		if(args[2].matches("narancs")){
+		game.jatekter.felhasznalo.fejleszt(erre, new Narancsvarazsko());
+		success = true;
+		}
+		if(args[2].matches("piros")){
+		game.jatekter.felhasznalo.fejleszt(erre, new Pirosvarazsko());	
+		success = true;
+	    }
+		if(args[2].matches("sarga")){
+		game.jatekter.felhasznalo.fejleszt(erre, new Sargavarazsko());	
+		success = true;
+	    }
+		if(args[2].matches("zold")){
+		game.jatekter.felhasznalo.fejleszt(erre, new Zoldvarazsko());
+		success = true;
+		}
+		}
+		
+		if(!success) System.out.println("Bad parameter");
+		if(success) System.out.println("Varazsko hozzaadva");
+		
+			
 	}
+	
+	public static void addtrapgem(String args[]){
+		boolean megvan = false;
+		int index = 0;
+		Lilavarazsko l = new Lilavarazsko();
+		if(game.jatekter.felhasznalo.varazskovek.contains(l))
+		{
+			
+			while(megvan == false && index < game.akadalylista.size())
+			{
+				if(game.akadalylista.get(index).id.equals(args[1]) )
+				{
+					game.akadalylista.get(index).addko(l);
+					System.out.printf("Varazsko hozzaadva \n");
+					megvan = true;
+					
+				}
+				else
+				{
+					index++;
+				}
+			}
+			if(megvan == false)
+			{
+				System.out.printf("Nem letezo ID \n");
+			}
+		}
+		else
+		{
+			System.out.printf("Nem letezo varazsko \n");
+		}
+	}
+	
 	public static void addenemy(String args[]){
-
+		int sor = Integer.parseInt(args[2]);
+		int oszlop = Integer.parseInt(args[3]);
+		Cella valasztott = game.jatekter.cellak.get(sor).get(oszlop);
+		if(!valasztott.mezovagyok())
+		{
+			int type = 0;
+			if(args[1].matches("hobbit")) type = 0;
+			else if(args[1].matches("ember")) type = 1;
+			else if(args[1].matches("tunder")) type = 2;
+			else if(args[1].matches("torpe")) type = 3;			
+			
+			switch(type)
+			{
+				case 0:
+					Hobbit h = new Hobbit((Ut)valasztott);
+					h.id=args[1];
+					valasztott.ratesz(h);	
+					System.out.println("Ellenseg hozzaadva");
+					break;
+				case 1:
+					Ember e = new Ember((Ut)valasztott);
+					e.id=args[1];
+					valasztott.ratesz(e);
+					System.out.println("Ellenseg hozzaadva");
+					break;
+				case 2:
+					Tunde t = new Tunde((Ut)valasztott);
+					t.id=args[1];
+					valasztott.ratesz(t);
+					System.out.println("Ellenseg hozzaadva");
+					break;
+				case 3:
+					Torpe t1 = new Torpe((Ut)valasztott);
+					t1.id=args[1];
+					valasztott.ratesz(t1);
+					System.out.println("Ellenseg hozzaadva");
+					break;
+				default: System.out.println("Bad parameter");
+			}
+			
+		}
+		else
+		{
+			System.out.printf(" Nem mezo, vagy valami baj van \n");
+		}
+			
+		
 	}
 	public static void addspecialprojectile(String args[]){
+		
+		if(args.length == 1){
+			Torony ebben = null ;
+			for(int i = 0; i < game.toronylista.size(); i++){
+				if(args[1].matches(game.toronylista.get(i).id));
+					ebben = game.toronylista.get(i);
+			}
+		ebben.specprojectile = true;
+		System.out.println("Specialis lovedek hozzaadva");
+			
+		}else System.out.println("Bad parameters");
 
 	}
 	public static void addfog(String args[]){
-
+		boolean megvan = false;
+		int index = 0;
+		while(megvan==false && index<game.toronylista.size())
+		{
+			if(game.toronylista.get(index).id == args[0])
+			{
+				game.toronylista.get(index).kodosit();
+				megvan = true;
+				System.out.println("Kod hozzaadva");
+			}
+			else
+			{
+			index++;
+			}
+		}
+		if(!megvan)
+			System.out.println("Nem letezo ID");
 	}
 	public static void enemydirection(String args[]){
-
+		boolean megvan = false;
+		int index = 0;
+		
+		while(megvan==false && index<game.ellenseglista.size())
+		{
+			if(game.ellenseglista.get(index).id.matches(args[1]))
+			{
+				Ellenseg temp =game.ellenseglista.get(index);
+				
+				int irany;
+				if(args[1].matches("N")) 		irany=1;
+				else if(args[1].matches("S")) 	irany=2;
+				else if(args[1].matches("E")) 	irany=3;
+				else if(args[1].matches("W")) 	irany=4;
+				else							irany=0;
+				
+				switch(irany)
+				{
+					case 1:
+							if(temp.sajatUt.szomszedok.get(0) instanceof Ut) // Ha felfele Út van
+							{
+								ArrayList<Ut> t= new ArrayList<Ut>();
+								t.add((Ut)temp.sajatUt.szomszedok.get(0));
+								temp.lepek(t);
+							}
+							else
+							{
+								System.out.printf("Invalid Parameter \n");
+							}
+							
+					case 2:
+						if(temp.sajatUt.szomszedok.get(1) instanceof Ut) 	// Ha lefelé út van
+						{
+							ArrayList<Ut> t=new ArrayList<Ut>();
+							t.add((Ut)temp.sajatUt.szomszedok.get(1));
+							temp.lepek(t);
+						}
+						else
+						{
+							System.out.printf("Invalid Parameter \n");
+						}
+						break;
+							
+						
+					case 3:
+						if(temp.sajatUt.szomszedok.get(2) instanceof Ut)	// Ha balra út van
+						{
+							ArrayList<Ut> t = new ArrayList<Ut>();
+							t.add((Ut)temp.sajatUt.szomszedok.get(2));
+							temp.lepek(t);
+						}
+						else
+						{
+							System.out.printf("Invalid Parameter \n");
+						}
+						break;
+						
+					case 4:
+						if(temp.sajatUt.szomszedok.get(3) instanceof Ut) 	//Ha jobbra út van
+						{
+							ArrayList<Ut> t = new ArrayList<Ut>();
+							t.add((Ut)temp.sajatUt.szomszedok.get(3));
+							temp.lepek(t);
+						}
+						else
+						{
+							System.out.printf("Invalid Parameter \n"); 
+						}
+						break;
+					case 0:
+					default:
+						System.out.printf("Invalid Parameter \n");
+						break;
+				
+				}
+				
+				megvan = true;
+			}
+			else
+			{
+			index++;
+			}
+		}
+		if(!megvan)
+		{		
+			System.out.printf("Nem talal szomszedokat, vagy az ellenseget. \n"); 
+		}
+		
 	}
 	public static void exit(){
-
+			System.out.println("Szia!");
+			System.exit(0);
 	}
 	
 }

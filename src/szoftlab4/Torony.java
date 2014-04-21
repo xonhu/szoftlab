@@ -16,10 +16,12 @@ public class Torony implements Aktiv, Mezorevalo {
 		private boolean kodos;
 		ArrayList<Toronykovek> kovek;
 		public Kod kod;
+		boolean specprojectile;
 	
 //Torony publikus konstruktora
 		Torony(){
 			hatotav=1;
+			specprojectile = false;
 			tuzgyak=10;
 			sebzes=1;
 			counter = 0;
@@ -28,6 +30,17 @@ public class Torony implements Aktiv, Mezorevalo {
 			kodos = false;
 		}
 		
+//Torony publikus konstruktora teszteléshez
+				Torony(String iduj){
+					hatotav=1;
+					id = iduj;
+					tuzgyak=10;
+					sebzes=1;
+					counter = 0;
+					kovek = new ArrayList<Toronykovek>();
+					sajatMezo = new Mezo();
+					kodos = false;
+				}
 //Ha történik a rendszerben egy tick(), ez a metódus hívódik meg
 //Bizonyos idõközönként lõni fog a közelben található ellenségekre
 //A tüzelési gyakoriságra hatással van a Sárga varázskõ megléte
@@ -83,11 +96,11 @@ public class Torony implements Aktiv, Mezorevalo {
 			lov.sebzesHobbit += (barna*10);
 			lov.sebzesTunde += (narancs*10);
 			lov.sebzesTorpe += (piros*10);
-			if(index == 1)
+			if(index == 1 || specprojectile)
 				lov.hasit = true;
 			else 
 				lov.hasit = false;
-			
+			specprojectile = false;
 			return lov;
 		}
 		

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Jatekos {
 	
 	//Tárolja a játékos varázserejét
-	public int varazsero;
+	public int varazsero = 0;
 	
 	//A játékos birtokában léõv varázsköveket tartalmazza
 	public ArrayList<Varazsko> varazskovek;
@@ -43,6 +43,10 @@ public class Jatekos {
 	public void fejleszt(Akadaly akadaly, Lilavarazsko varazsko) {
 		akadaly.addko(varazsko);
 	}
+	
+	public void fejleszt(Torony torony, Toronykovek toronyko) {
+		torony.addKo(toronyko);
+	}
 
 	//Egy új akadályt hozhatunk létre, ha van rá elég varázserõnk
 	public void ujAkadaly(Ut valasztottUt) {
@@ -51,9 +55,15 @@ public class Jatekos {
 	}
 
 	//Egy új Tornyot hozhatunk létre, ha van rá elég varázserõnk
-	public void ujTorony(Mezo valasztottMezo) {
-		valasztottMezo.ratesz(new Torony());
-		varazserotVeszit(50);
+	public void ujTorony(Mezo valasztottMezo, Torony ezt) {
+		
+		if(varazsero>50){
+			valasztottMezo.ratesz(ezt);
+			varazserotVeszit(50);
+			System.out.println("Torony letrehozva");
+		}else{
+			System.out.println("Nincs eleg varazsero");
+		}
 	}
 
 	public void kovetVesz(String koTipus) {

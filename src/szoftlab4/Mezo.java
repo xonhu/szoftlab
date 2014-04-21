@@ -9,7 +9,8 @@ public class Mezo extends Cella {
 	
 	//A Mezo osztály konstruktora, amely meghívja a cella konstruktorát is
 	public Mezo(){
-		super();								
+		super();	
+		rajtamvan = new ArrayList<Mezorevalo>();
 	}
 	
 	//A mezõ osztály paraméteres konstruktora, ami incializálja a szomszédokat is
