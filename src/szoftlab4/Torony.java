@@ -6,6 +6,8 @@ import java.util.Random;
 
 //Torony osztály
 public class Torony implements Aktiv, Mezorevalo {
+	
+		public String id;
 		private Mezo sajatMezo;
 		private int hatotav;
 		private int tuzgyak;
@@ -26,6 +28,17 @@ public class Torony implements Aktiv, Mezorevalo {
 			kodos = false;
 		}
 		
+//Torony publikus konstruktora teszteléshez
+				Torony(String iduj){
+					hatotav=1;
+					id = iduj;
+					tuzgyak=10;
+					sebzes=1;
+					counter = 0;
+					kovek = new ArrayList<Toronykovek>();
+					sajatMezo = new Mezo();
+					kodos = false;
+				}
 //Ha történik a rendszerben egy tick(), ez a metódus hívódik meg
 //Bizonyos idõközönként lõni fog a közelben található ellenségekre
 //A tüzelési gyakoriságra hatással van a Sárga varázskõ megléte
