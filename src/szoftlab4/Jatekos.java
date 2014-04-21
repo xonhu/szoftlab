@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Jatekos {
 	
 	//Tárolja a játékos varázserejét
-	public int varazsero;
+	public int varazsero = 0;
 	
 	//A játékos birtokában léõv varázsköveket tartalmazza
 	public ArrayList<Varazsko> varazskovek;
@@ -42,6 +42,10 @@ public class Jatekos {
 	//Egy kiválasztott akadályt fejleszthetünk vele, ha van a birtokunkban Lila varázskõ
 	public void fejleszt(Akadaly akadaly, Lilavarazsko varazsko) {
 		akadaly.addko(varazsko);
+	}
+	
+	public void fejleszt(Torony torony, Toronykovek toronyko) {
+		torony.addKo(toronyko);
 	}
 
 	//Egy új akadályt hozhatunk létre, ha van rá elég varázserõnk

@@ -47,7 +47,7 @@ public class Ellenseg implements Utravalo, Aktiv {
 	public void meghal(){
 			
 		sajatUt.levesz(this);
-		Game.controller.meghaltam(ertek);
+		Application.game.controller.meghaltam(ertek);
 		
 
 	}

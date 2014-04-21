@@ -25,7 +25,7 @@ public class VegzetHegye implements Utravalo {
 	//Akkor hívódik meg, hogyha a torony ereje annyira lecsökken, hogy a toronynak el kell
 	//pusztulnia
 	public void meghal(){
-		Game.controller.endgame(true);
+		Application.game.controller.endgame(true);
 	}
 	
 	
