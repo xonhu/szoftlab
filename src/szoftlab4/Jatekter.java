@@ -29,48 +29,56 @@ public class Jatekter {
 
 		BufferedReader br = null;
 		try {
-			System.out.println(System.getProperty("user.dir"));
 			br = new BufferedReader(new FileReader(filename));
 
-			String line = br.readLine();
-
 			//Az elsõ sorból beolvassa a pálya méreteit
-			//TODO: Akkor is mûködik, hogyha kétszámjegyû a pálya mérete?
-			int sizeI = Character.getNumericValue(line.charAt(0));
-			int sizeJ = Character.getNumericValue(line.charAt(2));
-			line = br.readLine();
-
-			int currentLineNumber = 0;
+			String line = br.readLine();
+			String[] splitLine = line.split("\\s+");
+			int sizeI = Integer.parseInt(splitLine[0]);
+			int sizeJ = Integer.parseInt(splitLine[1]);
 
 			//Olvassa a fájlból a pálya sorait
-			//TODO: Végzethegye, power, szomszédok beállítása
-			while (line != null) {
-
-				cellak.add(new ArrayList<Cella>());
-
-				for (int k = 0; k < line.length(); k++) {
-					if (line.charAt(k) == 'M') {
-						cellak.get(currentLineNumber).add(new Mezo());
-					} else if (line.charAt(k) == 'U') {
-						cellak.get(currentLineNumber).add(new Ut());
-					} else
-						break;
-				}
-				currentLineNumber++;
+			for(int i=0;i<sizeI;i++){
 				line = br.readLine();
+				cellak.add(new ArrayList<Cella>());
+				for(int j=0;j<sizeJ;j++){
+					if (line.charAt(j) == 'M')		cellak.get(i).add(new Mezo());
+					else if (line.charAt(j) == 'U') cellak.get(i).add(new Ut());
+					else 							break;
+				}
+			}
+			
+			//VégzetHegye pozícióját beolvassuk a fájlból
+			line = br.readLine();
+			splitLine = line.split("\\s+");
+			if(splitLine[0].equals("VH")){
+				if(splitLine.length == 3) 
+					cellak.get(Integer.parseInt(splitLine[1])).get(Integer.parseInt(splitLine[2])).ratesz(
+							new VegzetHegye(cellak.get(Integer.parseInt(splitLine[1])).get(Integer.parseInt(splitLine[2])))
+							);
+			}
+			
+			
+			//Felhasználó varázserejét beolvassuk a fájlból
+			line = br.readLine();
+			splitLine = line.split("\\s+");
+			if(splitLine[0].equals("POWER")){
+				if(splitLine.length == 2) 
+					felhasznalo.varazserotKap(Integer.parseInt(splitLine[1]));
 			}
 
-			// ellenõrzés
-			/*
-			 * for (int i = 0; i < sizeI; i++){ for (int j = 0; j < sizeJ; j++)
-			 * if (cellak.get(i).get(j).getClass().equals(Mezo.class))
-			 * System.out.print("M"); else System.out.print("U");
-			 * System.out.println(); }
-			 */
+			//Cella szomszédainak beállítása
+			for(int i=0; i< cellak.size();i++){
+				for(int j=0; j< cellak.get(i).size();j++){
+					if(i>0)							cellak.get(i).get(j).szomszedok.add(cellak.get(i-1).get(j));
+					if(i< (cellak.size()-1) )		cellak.get(i).get(j).szomszedok.add(cellak.get(i+1).get(j));
+					if(j>0)							cellak.get(i).get(j).szomszedok.add(cellak.get(i).get(j-1));
+					if(j< (cellak.get(i).size()-1))	cellak.get(i).get(j).szomszedok.add(cellak.get(i).get(j+1));
+				}
+			}
 
 		} catch (IOException e) {
 			System.err.println("IO Hiba");
-			e.printStackTrace();
 		} finally {
 			try {
 				br.close();
@@ -84,7 +92,6 @@ public class Jatekter {
 	public int getAr(String koTipus) {
 
 		int ar = 0;
-
 		return ar;
 	}
 }
