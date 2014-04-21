@@ -51,7 +51,7 @@ public class Jatekter {
 			//VégzetHegye pozícióját beolvassuk a fájlból
 			line = br.readLine();
 			splitLine = line.split("\\s+");
-			if(splitLine[0].equals("VH")){
+			if(splitLine[0].matches("VH")){
 				if(splitLine.length == 3) 
 					cellak.get(Integer.parseInt(splitLine[1])).get(Integer.parseInt(splitLine[2])).ratesz(
 							new VegzetHegye(cellak.get(Integer.parseInt(splitLine[1])).get(Integer.parseInt(splitLine[2])))
@@ -62,10 +62,11 @@ public class Jatekter {
 			//Felhasználó varázserejét beolvassuk a fájlból
 			line = br.readLine();
 			splitLine = line.split("\\s+");
-			if(splitLine[0].equals("POWER")){
+			if(splitLine[0].matches("POWER")){
 				if(splitLine.length == 2) 
 					felhasznalo.varazserotKap(Integer.parseInt(splitLine[1]));
 			}
+			System.out.println(felhasznalo.varazsero);
 
 			//Cella szomszédainak beállítása
 			for(int i=0; i< cellak.size();i++){

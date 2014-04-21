@@ -10,9 +10,7 @@ import java.io.InputStreamReader;
  */
 public class Application {
 	
-	Game game = new Game();
-	private static Jatekos user = new Jatekos();
-	private static Jatekter palya = new Jatekter(user);
+	public static Game game = new Game();
 	
 	/*
 	 *	Prototípus konzolos felületének parancsai 
@@ -26,7 +24,7 @@ public class Application {
 		 */
 	    static Code parseString(String par) {
 	        try {
-	        	if(par.equals("")) return enter;
+	        	if(par.matches("")) return enter;
 	            return valueOf(par);
 	        } catch (NullPointerException ex){
 	        	return enter;
@@ -144,7 +142,7 @@ public class Application {
 	
 	public static void loadmap(String args[]){
 		if(args.length > 1)	{
-			palya.betolt(args[1]);
+			Application.game.jatekter.betolt(args[1]);
 			System.out.println("Map loaded");
 			}
 		else System.out.println("Invalid parameter");
@@ -154,13 +152,13 @@ public class Application {
 	public static void tick(String args[]){
 			int count = Integer.parseInt(args[0]);
 			for(int i = 0;i<count;i++){
-				for(int j = 0; j < Game.controller.aktiv.size();j++ ){
-					Game.controller.aktiv.get(j).tick();
+				for(int j = 0; j < game.controller.aktiv.size();j++ ){
+					Application.game.controller.aktiv.get(j).tick();
 				}
 			}
 	}
 	public static void printpower(){
-		System.out.println("Varazsero "+ Game.jatekter.felhasznalo.varazsero);
+		System.out.println("Varazsero "+ game.jatekter.felhasznalo.varazsero);
 
 	}
 	public static void printgems(){
@@ -173,20 +171,20 @@ public class Application {
 		int zold = 0;
 		int lila = 0;
 		
-		for(int i = 0;i<Game.jatekter.felhasznalo.varazskovek.size();i++){
-			if(Game.jatekter.felhasznalo.varazskovek.get(i) instanceof Barnavarazsko)
+		for(int i = 0;i<game.jatekter.felhasznalo.varazskovek.size();i++){
+			if(game.jatekter.felhasznalo.varazskovek.get(i) instanceof Barnavarazsko)
 				barna++;
-			if(Game.jatekter.felhasznalo.varazskovek.get(i) instanceof Sargavarazsko)
+			if(game.jatekter.felhasznalo.varazskovek.get(i) instanceof Sargavarazsko)
 				sarga++;
-			if(Game.jatekter.felhasznalo.varazskovek.get(i) instanceof Narancsvarazsko)
+			if(game.jatekter.felhasznalo.varazskovek.get(i) instanceof Narancsvarazsko)
 				narancs++;
-			if(Game.jatekter.felhasznalo.varazskovek.get(i) instanceof Kekvarazsko)
+			if(game.jatekter.felhasznalo.varazskovek.get(i) instanceof Kekvarazsko)
 				kek++;
-			if(Game.jatekter.felhasznalo.varazskovek.get(i) instanceof Pirosvarazsko)
+			if(game.jatekter.felhasznalo.varazskovek.get(i) instanceof Pirosvarazsko)
 				piros++;
-			if(Game.jatekter.felhasznalo.varazskovek.get(i) instanceof Zoldvarazsko)
+			if(game.jatekter.felhasznalo.varazskovek.get(i) instanceof Zoldvarazsko)
 				zold++;
-			if(Game.jatekter.felhasznalo.varazskovek.get(i) instanceof Lilavarazsko)
+			if(game.jatekter.felhasznalo.varazskovek.get(i) instanceof Lilavarazsko)
 				lila++;
 		}
 		
@@ -209,33 +207,33 @@ public class Application {
 	}
 	public static void buygem(String args[]){
 		
-		boolean success false;
-		if(args[0].matches("barna") && Game.jatekter.felhasznalo.varazsero>50){
-			Game.jatekter.felhasznalo.varazskovek.add(new Barnavarazsko());
+		boolean success = false;
+		if(args[1].matches("barna") && game.jatekter.felhasznalo.varazsero>50){
+			game.jatekter.felhasznalo.varazskovek.add(new Barnavarazsko());
 			success = true;
 		}
-		if(args[0].matches("kek") && Game.jatekter.felhasznalo.varazsero>50){
-			Game.jatekter.felhasznalo.varazskovek.add(new Kekvarazsko());
+		if(args[1].matches("kek") && game.jatekter.felhasznalo.varazsero>50){
+			game.jatekter.felhasznalo.varazskovek.add(new Kekvarazsko());
 		success = true;
 		}
-		if(args[0].matches("lila") && Game.jatekter.felhasznalo.varazsero>50){
-			Game.jatekter.felhasznalo.varazskovek.add(new Lilavarazsko());
+		if(args[1].matches("lila") && game.jatekter.felhasznalo.varazsero>50){
+			game.jatekter.felhasznalo.varazskovek.add(new Lilavarazsko());
 		success = true;
         }
-		if(args[0].matches("narancs") && Game.jatekter.felhasznalo.varazsero>50){
-			Game.jatekter.felhasznalo.varazskovek.add(new Narancsvarazsko());
+		if(args[1].matches("narancs") && game.jatekter.felhasznalo.varazsero>50){
+			game.jatekter.felhasznalo.varazskovek.add(new Narancsvarazsko());
 		success = true;
 		}
-		if(args[0].matches("piros") && Game.jatekter.felhasznalo.varazsero>50){
-			Game.jatekter.felhasznalo.varazskovek.add(new Pirosvarazsko());
+		if(args[1].matches("piros") && game.jatekter.felhasznalo.varazsero>50){
+			game.jatekter.felhasznalo.varazskovek.add(new Pirosvarazsko());
 		success = true;
 	    }
-		if(args[0].matches("sarga") && Game.jatekter.felhasznalo.varazsero>50){
-			Game.jatekter.felhasznalo.varazskovek.add(new Sargavarazsko());
+		if(args[1].matches("sarga") && game.jatekter.felhasznalo.varazsero>50){
+			game.jatekter.felhasznalo.varazskovek.add(new Sargavarazsko());
 		success = true;
 	    }
-		if(args[0].matches("zold") && Game.jatekter.felhasznalo.varazsero>50){
-			Game.jatekter.felhasznalo.varazskovek.add(new Zoldvarazsko());
+		if(args[1].matches("zold") && game.jatekter.felhasznalo.varazsero>50){
+			game.jatekter.felhasznalo.varazskovek.add(new Zoldvarazsko());
 		success = true;
 		}
 		
@@ -244,21 +242,21 @@ public class Application {
 	}
 	
 	public static void addtower(String args[]){
-		int sor = Integer.parseInt(args[1]);
-		int oszlop = Integer.parseInt(args[2]);
+		int sor = Integer.parseInt(args[2]);
+		int oszlop = Integer.parseInt(args[3]);
 		boolean joid = true;
 		
-		for(int i = 0;i<Game.toronylista.size();i++){
-			if(Game.toronylista.get(i).id.matches(args[0]))
+		for(int i = 0;i<game.toronylista.size();i++){
+			if(game.toronylista.get(i).id.matches(args[1]))
 				joid = false;
 		}
 		
 		if(joid){
-			Torony uj = new Torony(args[0]);
-			Game.toronylista.add(uj);
-			Cella valasztott = Game.jatekter.cellak.get(sor).get(oszlop);
+			Torony uj = new Torony(args[1]);
+			game.toronylista.add(uj);
+			Cella valasztott = game.jatekter.cellak.get(sor).get(oszlop);
 			if(valasztott.mezovagyok())
-			Game.jatekter.felhasznalo.ujTorony((Mezo)valasztott, uj);
+			game.jatekter.felhasznalo.ujTorony((Mezo)valasztott, uj);
 				}
 		else{
 			System.out.println("Mar letezo ID");
