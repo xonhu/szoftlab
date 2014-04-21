@@ -22,9 +22,13 @@ public class Torony implements Aktiv, Mezorevalo {
 			sajatMezo = new Mezo();
 		}
 //Ha történik a rendszerben egy tick(), ez a metódus hívódik meg	
-//TODO: Jelenleg nincs implementálva, hogy a kövek függvényében változzon a tüzelés gyakorisága
 		public void tick(){
-			if(counter >= tuzgyak){
+		int varazs = 0;
+		for(int i = 0;i<kovek.size();i++){
+			if(kovek.get(i) instanceof Sargavarazsko)
+				varazs++;
+		}
+			if(counter >= (tuzgyak-varazs)){
 				tuzel();
 				counter = 0;
 			}
@@ -32,10 +36,25 @@ public class Torony implements Aktiv, Mezorevalo {
 			
 		}
 //Létrehoz egy lövedéket, amit egy ellenségnek átadva, sebezzük azt	
-//TODO: Nincs implementálva az, hogy a kövektõl függjön az elkészült lövedék tulajdonsága
 		private Lovedek createLovedek(){
+			int barna = 0;
+			int kek = 0;
+			int narancs = 0;
+			int piros = 0;
+			
+			for(int i = 0; i< kovek.size();i++){
+				if(kovek.get(i) instanceof Barnavarazsko) barna++;
+				if(kovek.get(i) instanceof Kekvarazsko) kek++;
+				if(kovek.get(i) instanceof Narancsvarazsko) narancs++;
+				if(kovek.get(i) instanceof Pirosvarazsko) piros++;
+			}
 			
 			Lovedek lov = new Lovedek();
+
+			lov.sebzesEmber += (kek*10);
+			lov.sebzesHobbit += (barna*10);
+			lov.sebzesTunde += (narancs*10);
+			lov.sebzesTorpe += (piros*10);
 			
 			return lov;
 		}
