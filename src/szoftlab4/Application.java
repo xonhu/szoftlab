@@ -97,6 +97,7 @@ public class Application {
 					break;
 				case addtrap:
 					addtrap(parancs);
+					break;
 				case addenemy:
 					addenemy(parancs);
 					break;
