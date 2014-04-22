@@ -9,7 +9,7 @@ public class Akadaly implements Utravalo {
 	public String id;
 	
 	//Attribútum annak a tárolására, hogy az Akadály melyik Ut-on áll
-	private Ut sajatUt;
+	public Ut sajatUt;
 	
 	//Tartalmazza, hogy mekkora mértékben lassítja az ellenfelet.
 	private int lassitas;

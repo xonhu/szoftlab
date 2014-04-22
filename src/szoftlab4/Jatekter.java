@@ -52,10 +52,13 @@ public class Jatekter {
 			line = br.readLine();
 			splitLine = line.split("\\s+");
 			if(splitLine[0].equals("VH")){
-				if(splitLine.length == 3) 
+				if(splitLine.length == 3){ 
+					VegzetHegye uj = new VegzetHegye(cellak.get(Integer.parseInt(splitLine[1])).get(Integer.parseInt(splitLine[2])));
 					cellak.get(Integer.parseInt(splitLine[1])).get(Integer.parseInt(splitLine[2])).ratesz(
-							new VegzetHegye(cellak.get(Integer.parseInt(splitLine[1])).get(Integer.parseInt(splitLine[2])))
+							uj
 							);
+					Application.game.hegy = uj;
+			}
 			}
 			
 			

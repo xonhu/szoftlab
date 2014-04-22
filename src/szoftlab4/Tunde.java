@@ -10,19 +10,21 @@ public class Tunde extends Ellenseg{
 	public Tunde(Ut sajat) {
 		super(sajat);
 		elet = 170;
-		ertek = 150;	}
+		ertek = 150;
+	count = 0;	
+	}
 	
 	//Tick hatására a Tünde bizonyos valószínûséggel lépni fog (1/2)
 	public void tick(){
 		
-		 Random randomGenerator = new Random();
-		 int index = randomGenerator.nextInt(1);
-		 
-		 
-		if(index == 1){
-			ArrayList<Ut> lehetsegesutak = sajatUt.lepnek();
-			lepek(lehetsegesutak);
-		}
+		//	 Random randomGenerator = new Random();
+		//	 int index = randomGenerator.nextInt(2);
+			 
+			if(count == 3){
+				ArrayList<Ut> lehetsegesutak = sajatUt.lepnek();
+				lepek(lehetsegesutak);
+				count = 0;
+			} else count++;
 		
 	}
 	

@@ -9,6 +9,7 @@ public class Game {
 	public ArrayList<Ellenseg> ellenseglista;
 	public ArrayList<Ut> utlista;
 	public ArrayList<Akadaly> akadalylista;
+	public VegzetHegye hegy;
 
 	Game(){
 		jatekter = new Jatekter(new Jatekos());

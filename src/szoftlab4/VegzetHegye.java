@@ -6,16 +6,16 @@ public class VegzetHegye implements Utravalo {
 	private Ut sajatUt;
 	
 	//A VegzetHegye életét tartalmazza
-	private int elet;
+	public int elet;
 		
 	//Konstruktor, ami inicializálja az objektumot.
 	public VegzetHegye(){
 		sajatUt = null;
-		elet = 500;
+		elet = 100;
 	}
 	public VegzetHegye(Cella sj){
 		sajatUt = (Ut)sj;
-		elet = 500;
+		elet = 100;
 	}
 	
 	//A torony életét lecsökkkenti a paraméterben kapott mennyiséggel

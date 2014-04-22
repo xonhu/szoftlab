@@ -153,25 +153,37 @@ public class Application {
 		for (int i = 0; i < game.toronylista.size(); i++) {
 			int x = game.getCoord(game.toronylista.get(i).sajatMezo).x;
 			int y = game.getCoord(game.toronylista.get(i).sajatMezo).y;
-			System.out.println("Torony " + game.toronylista.get(i).id + " " + x
-					+ " " + y);
+			System.out.println("Torony " + game.toronylista.get(i).id + " " + y
+					+ " " + x);
 		}
 
 		for (int i = 0; i < game.ellenseglista.size(); i++) {
-
+			int x = game.getCoord(game.ellenseglista.get(i).sajatUt).x;
+			int y = game.getCoord(game.ellenseglista.get(i).sajatUt).y;
 			if (game.ellenseglista.get(i) instanceof Hobbit)
-				System.out.println("Hobbit " + game.ellenseglista.get(i).id);
+				System.out.println("Hobbit " + game.ellenseglista.get(i).id  + " " + y
+						+ " " + x + " "+ game.ellenseglista.get(i).elet);
 			if (game.ellenseglista.get(i) instanceof Ember)
-				System.out.println("Ember " + game.ellenseglista.get(i).id);
+				System.out.println("Ember " + game.ellenseglista.get(i).id  + " " + y
+						+ " " + x + " "+ game.ellenseglista.get(i).elet);
 			if (game.ellenseglista.get(i) instanceof Tunde)
-				System.out.println("Tunde " + game.ellenseglista.get(i).id);
+				System.out.println("Tunde "+ game.ellenseglista.get(i).id  + " " + y
+						+ " " + x + " "+ game.ellenseglista.get(i).elet);
 			if (game.ellenseglista.get(i) instanceof Torpe)
-				System.out.println("Torpe " + game.ellenseglista.get(i).id);
+				System.out.println("Torpe " + game.ellenseglista.get(i).id  + " " + y
+						+ " " + x + " "+ game.ellenseglista.get(i).elet);
 		}
 
 		for (int i = 0; i < game.akadalylista.size(); i++) {
-			System.out.println("Akadaly " + game.akadalylista.get(i).id);
+			int x = game.getCoord(game.akadalylista.get(i).sajatUt).x;
+			int y = game.getCoord(game.akadalylista.get(i).sajatUt).y;
+			System.out.println("Akadaly " + game.akadalylista.get(i).id + " " + y +" " +x);
 		}
+		
+		if(game.hegy != null)
+			System.out.println("Vegzet Hegye " + game.hegy.elet);
+		
+		
 
 	}
 
@@ -223,62 +235,104 @@ public class Application {
 		}
 
 		if (barna != 0)
-			System.out.println("Barnavarazsko" + barna);
+			System.out.println("Barnavarazsko " + barna);
 		if (kek != 0)
-			System.out.println("Kekvarazsko" + kek);
+			System.out.println("Kekvarazsko " + kek);
 		if (lila != 0)
-			System.out.println("Lilavarazsko" + lila);
+			System.out.println("Lilavarazsko " + lila);
 		if (narancs != 0)
-			System.out.println("Narancsvarazsko" + narancs);
+			System.out.println("Narancsvarazsko " + narancs);
 		if (piros != 0)
-			System.out.println("Pirosvarazsko" + piros);
+			System.out.println("Pirosvarazsko " + piros);
 		if (sarga != 0)
-			System.out.println("Sargavarazsko" + sarga);
+			System.out.println("Sargavarazsko " + sarga);
 		if (zold != 0)
-			System.out.println("Zoldvarazsko" + zold);
+			System.out.println("Zoldvarazsko " + zold);
 
 	}
 
 	public static void buygem(String args[]) {
-
 		boolean success = false;
-		if (args[0].matches("barna")
-				&& game.jatekter.felhasznalo.varazsero > 50) {
-			game.jatekter.felhasznalo.varazskovek.add(new Barnavarazsko());
+		boolean megveve = false;
+		if(args.length > 1){
+		if (args[1].matches("barna")){
+			if(game.jatekter.felhasznalo.varazsero >= 50){
+				game.jatekter.felhasznalo.varazskovek.add(new Barnavarazsko());
+				game.jatekter.felhasznalo.varazserotVeszit(30);
+				megveve =true;
+			}
+			else System.out.println("Nincs eleg varazsero");
 			success = true;
 		}
-		if (args[0].matches("kek") && game.jatekter.felhasznalo.varazsero > 50) {
-			game.jatekter.felhasznalo.varazskovek.add(new Kekvarazsko());
-			success = true;
-		}
-		if (args[0].matches("lila") && game.jatekter.felhasznalo.varazsero > 50) {
-			game.jatekter.felhasznalo.varazskovek.add(new Lilavarazsko());
-			success = true;
-		}
-		if (args[0].matches("narancs")
-				&& game.jatekter.felhasznalo.varazsero > 50) {
-			game.jatekter.felhasznalo.varazskovek.add(new Narancsvarazsko());
-			success = true;
-		}
-		if (args[0].matches("piros")
-				&& game.jatekter.felhasznalo.varazsero > 50) {
-			game.jatekter.felhasznalo.varazskovek.add(new Pirosvarazsko());
-			success = true;
-		}
-		if (args[0].matches("sarga")
-				&& game.jatekter.felhasznalo.varazsero > 50) {
-			game.jatekter.felhasznalo.varazskovek.add(new Sargavarazsko());
-			success = true;
-		}
-		if (args[0].matches("zold") && game.jatekter.felhasznalo.varazsero > 50) {
-			game.jatekter.felhasznalo.varazskovek.add(new Zoldvarazsko());
-			success = true;
-		}
+		else if (args[1].matches("kek")){
+			if(game.jatekter.felhasznalo.varazsero >= 30){
+				game.jatekter.felhasznalo.varazskovek.add(new Kekvarazsko());
+				game.jatekter.felhasznalo.varazserotVeszit(30);
+				megveve =true;
 
+			}
+			else System.out.println("Nincs eleg varazsero");
+			success = true;
+		}
+		else if (args[1].matches("lila")){
+			if(game.jatekter.felhasznalo.varazsero >= 30){
+				game.jatekter.felhasznalo.varazskovek.add(new Lilavarazsko());
+				game.jatekter.felhasznalo.varazserotVeszit(30);
+				megveve =true;
+
+			}
+			else System.out.println("Nincs eleg varazsero");
+			success = true;
+		}
+		else if (args[1].matches("narancs")){
+			if(game.jatekter.felhasznalo.varazsero >= 30){
+				game.jatekter.felhasznalo.varazskovek.add(new Narancsvarazsko());
+				game.jatekter.felhasznalo.varazserotVeszit(30);
+				megveve =true;
+
+			}
+			else System.out.println("Nincs eleg varazsero");
+			success = true;
+		}
+		else if (args[1].matches("piros")){
+			if(game.jatekter.felhasznalo.varazsero >= 30){
+				game.jatekter.felhasznalo.varazskovek.add(new Pirosvarazsko());
+				game.jatekter.felhasznalo.varazserotVeszit(30);
+				megveve =true;
+
+			}
+			else System.out.println("Nincs eleg varazsero");
+			success = true;
+		}
+		else if (args[1].matches("sarga")){
+			if(game.jatekter.felhasznalo.varazsero >= 30){
+				game.jatekter.felhasznalo.varazskovek.add(new Sargavarazsko());
+				game.jatekter.felhasznalo.varazserotVeszit(30);
+				megveve =true;
+
+			}
+			else System.out.println("Nincs eleg varazsero");
+			success = true;
+		}
+		else if (args[1].matches("zold")){
+			if(game.jatekter.felhasznalo.varazsero >= 30){
+				game.jatekter.felhasznalo.varazskovek.add(new Zoldvarazsko());
+				game.jatekter.felhasznalo.varazserotVeszit(30);
+				megveve =true;
+
+			}
+			else System.out.println("Nincs eleg varazsero");
+			success = true;
+		}
+		}
 		if (!success)
 			System.out.println("Bad parameter");
+		else if(megveve){
+			System.out.println("Varazsko megvasarolva");
+		}
+		}
 
-	}
+
 
 	public static void addtower(String args[]) {
 		int sor = Integer.parseInt(args[2]);
@@ -293,6 +347,7 @@ public class Application {
 		if (joid) {
 			Torony uj = new Torony(args[1]);
 			game.toronylista.add(uj);
+			game.controller.aktiv.add(uj);
 			Cella valasztott = game.jatekter.cellak.get(sor).get(oszlop);
 			if (valasztott.mezovagyok())
 				game.jatekter.felhasznalo.ujTorony((Mezo) valasztott, uj);
@@ -302,15 +357,15 @@ public class Application {
 	}
 
 	public static void addtowergem(String args[]) {
-		int id = 0;
+		String id = null;
 		boolean success = false;
 		Torony erre = null;
 		for (int i = 0; i < game.toronylista.size(); i++) {
 			if (game.toronylista.get(i).id.matches(args[1]))
-				id = Integer.parseInt(game.toronylista.get(i).id);
+				id = game.toronylista.get(i).id;
 			erre = game.toronylista.get(i);
 		}
-		if (id == 0) {
+		if (id == null) {
 			System.out.println("Nem letezo ID");
 		}
 
@@ -382,7 +437,7 @@ public class Application {
 				type = 0;
 			else if (args[1].matches("ember"))
 				type = 1;
-			else if (args[1].matches("tunder"))
+			else if (args[1].matches("tunde"))
 				type = 2;
 			else if (args[1].matches("torpe"))
 				type = 3;
@@ -394,6 +449,7 @@ public class Application {
 			switch (type) {
 			case 0:
 				Hobbit h = new Hobbit((Ut) valasztott);
+				game.controller.aktiv.add(h);
 				h.id = args[2];
 				valasztott.ratesz(h);
 				game.ellenseglista.add(h);
@@ -401,6 +457,7 @@ public class Application {
 				break;
 			case 1:
 				Ember e = new Ember((Ut) valasztott);
+				game.controller.aktiv.add(e);
 				e.id = args[2];
 				valasztott.ratesz(e);
 				game.ellenseglista.add(e);
@@ -408,6 +465,7 @@ public class Application {
 				break;
 			case 2:
 				Tunde t = new Tunde((Ut) valasztott);
+				game.controller.aktiv.add(t);
 				t.id = args[2];
 				valasztott.ratesz(t);
 				game.ellenseglista.add(t);
@@ -415,6 +473,7 @@ public class Application {
 				break;
 			case 3:
 				Torpe t1 = new Torpe((Ut) valasztott);
+				game.controller.aktiv.add(t1);
 				t1.id = args[2];
 				valasztott.ratesz(t1);
 				game.ellenseglista.add(t1);
@@ -465,104 +524,107 @@ public class Application {
 	}
 
 	public static void enemydirection(String args[]) {
-		boolean megvan = false;
-		int index = 0;
-		for (Ellenseg ell : game.ellenseglista) {
-			if (ell.id.matches(args[1])) {
-				index = game.ellenseglista.indexOf(ell);
-				megvan = true;
+		if(args.length > 2){
+			boolean megvan = false;
+			int index = 0;
+			for (Ellenseg ell : game.ellenseglista) {
+				if (ell.id.matches(args[1])) {
+					index = game.ellenseglista.indexOf(ell);
+					megvan = true;
+				}
 			}
-		}
-		
-		
-
-		if (megvan) {
-			Ellenseg temp = game.ellenseglista.get(index);
-			int irany;
-			if (args[2].matches("N"))
-				irany = 1;
-			else if (args[2].matches("S"))
-				irany = 2;
-			else if (args[2].matches("E"))
-				irany = 3;
-			else if (args[2].matches("W"))
-				irany = 4;
-			else
-				irany = 0;
-			int x, y;
-			switch (irany) {
-			case 1:
-				x = Application.game.getCoord(temp.sajatUt).x;
-				y = Application.game.getCoord(temp.sajatUt).y;
-				y--;
-
-				for (Cella sj : temp.sajatUt.szomszedok) {
-					if (Application.game.getCoord(sj).x == x
-							&& Application.game.getCoord(sj).y == y) {
-						sj.ratesz(temp);
-						System.out.println("Ellenseg iranya beallitva");
-						return;
+			
+			
+	
+			if (megvan) {
+				Ellenseg temp = game.ellenseglista.get(index);
+				int irany;
+				if (args[2].matches("N"))
+					irany = 1;
+				else if (args[2].matches("S"))
+					irany = 2;
+				else if (args[2].matches("E"))
+					irany = 3;
+				else if (args[2].matches("W"))
+					irany = 4;
+				else
+					irany = 0;
+				int x, y;
+				switch (irany) {
+				case 1:
+					x = Application.game.getCoord(temp.sajatUt).x;
+					y = Application.game.getCoord(temp.sajatUt).y;
+					y--;
+	
+					for (Cella sj : temp.sajatUt.szomszedok) {
+						if (Application.game.getCoord(sj).x == x
+								&& Application.game.getCoord(sj).y == y) {
+							sj.ratesz(temp);
+							System.out.println("Ellenseg iranya beallitva");
+							return;
+						}
 					}
-				}
-				System.out.println("Invalid Parameter");
-				break;
-
-			case 2:
-				x = Application.game.getCoord(temp.sajatUt).x;
-				y = Application.game.getCoord(temp.sajatUt).y;
-				y++;
-
-				for (Cella sj : temp.sajatUt.szomszedok) {
-					if (Application.game.getCoord(sj).x == x
-							&& Application.game.getCoord(sj).y == y) {
-						sj.ratesz(temp);
-						System.out.println("Ellenseg iranya beallitva");
-						return;
+					System.out.println("Invalid Parameter");
+					break;
+	
+				case 2:
+					x = Application.game.getCoord(temp.sajatUt).x;
+					y = Application.game.getCoord(temp.sajatUt).y;
+					y++;
+	
+					for (Cella sj : temp.sajatUt.szomszedok) {
+						if (Application.game.getCoord(sj).x == x
+								&& Application.game.getCoord(sj).y == y) {
+							sj.ratesz(temp);
+							System.out.println("Ellenseg iranya beallitva");
+							return;
+						}
 					}
-				}
-				System.out.println("Invalid Parameter");
-				break;
-
-			case 3:
-				x = Application.game.getCoord(temp.sajatUt).x;
-				y = Application.game.getCoord(temp.sajatUt).y;
-				x--;
-
-				for (Cella sj : temp.sajatUt.szomszedok) {
-					if (Application.game.getCoord(sj).x == x
-							&& Application.game.getCoord(sj).y == y) {
-						sj.ratesz(temp);
-						System.out.println("Ellenseg iranya beallitva");
-						return;
+					System.out.println("Invalid Parameter");
+					break;
+	
+				case 3:
+					x = Application.game.getCoord(temp.sajatUt).x;
+					y = Application.game.getCoord(temp.sajatUt).y;
+					x--;
+	
+					for (Cella sj : temp.sajatUt.szomszedok) {
+						if (Application.game.getCoord(sj).x == x
+								&& Application.game.getCoord(sj).y == y) {
+							sj.ratesz(temp);
+							System.out.println("Ellenseg iranya beallitva");
+							return;
+						}
 					}
-				}
-				System.out.println("Invalid Parameter");
-				break;
-
-			case 4:
-				x = Application.game.getCoord(temp.sajatUt).x;
-				y = Application.game.getCoord(temp.sajatUt).y;
-				x++;
-
-				for (Cella sj : temp.sajatUt.szomszedok) {
-					if (Application.game.getCoord(sj).x == x
-							&& Application.game.getCoord(sj).y == y) {
-						sj.ratesz(temp);
-						System.out.println("Ellenseg iranya beallitva");
-						return;
+					System.out.println("Invalid Parameter");
+					break;
+	
+				case 4:
+					x = Application.game.getCoord(temp.sajatUt).x;
+					y = Application.game.getCoord(temp.sajatUt).y;
+					x++;
+	
+					for (Cella sj : temp.sajatUt.szomszedok) {
+						if (Application.game.getCoord(sj).x == x
+								&& Application.game.getCoord(sj).y == y) {
+							sj.ratesz(temp);
+							System.out.println("Ellenseg iranya beallitva");
+							return;
+						}
 					}
+					System.out.println("Invalid Parameter");
+					break;
+				case 0:
+				default:
+					System.out.printf("Invalid Parameter \n");
+					break;
+	
 				}
-				System.out.println("Invalid Parameter");
-				break;
-			case 0:
-			default:
+			} else
 				System.out.printf("Invalid Parameter \n");
-				break;
-
-			}
-		} else
-			System.out.printf("Invalid Parameter \n");
-
+		
+		}
+		else System.out.println("Bad parameters");
 	}
 
 	public static void addtrap(String[] args) {

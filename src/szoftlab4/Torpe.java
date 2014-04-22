@@ -11,19 +11,20 @@ public class Torpe extends Ellenseg {
 		super(sajat);
 		elet = 200;
 		ertek = 140;
+		count = 0;
 	}
 	
 	//Tick hatására, a Törpe bizonyos valószínûséggel lépni fog. (1/5)
 	public void tick(){
 		
-		 Random randomGenerator = new Random();
-		 int index = randomGenerator.nextInt(4);
-		 
-		 
-		if(index == 1){
-			ArrayList<Ut> lehetsegesutak = sajatUt.lepnek();
-			lepek(lehetsegesutak);
-		}
+		//	 Random randomGenerator = new Random();
+		//	 int index = randomGenerator.nextInt(2);
+			 
+			if(count == 3){
+				ArrayList<Ut> lehetsegesutak = sajatUt.lepnek();
+				lepek(lehetsegesutak);
+				count = 0;
+			} else count++;
 		
 	}
 	

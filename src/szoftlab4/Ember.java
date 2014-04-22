@@ -9,19 +9,20 @@ public class Ember extends Ellenseg {
 		super(sajat);
 		elet = 100;
 		ertek = 100;
+		count = 0;
 	}
 
 	//Tick hatására az Ember bizonyos valószínûséggel lépni fog (1/3)
 	public void tick(){
 		
-		 Random randomGenerator = new Random();
-		 int index = randomGenerator.nextInt(2);
+	//	 Random randomGenerator = new Random();
+	//	 int index = randomGenerator.nextInt(2);
 		 
-		 
-		if(index == 1){
+		if(count == 3){
 			ArrayList<Ut> lehetsegesutak = sajatUt.lepnek();
 			lepek(lehetsegesutak);
-		}
+			count = 0;
+		} else count++;
 		
 	}
 	

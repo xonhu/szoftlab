@@ -8,12 +8,14 @@ public class Ellenseg implements Utravalo, Aktiv {
 	
 	public String id;
 	
+	public int count;
+	
 	//Tartalmazza hogy az Elenség éppen melyik mezõn van rajta
 	public Ut sajatUt;
 	
 	//Tartalmazza az Ellenség életének értékét
 	//Leszármazott osztályokban felülírni!
-	protected int elet;
+	public int elet;
 	
 	//Tartalmazza, hogy az Ellenség halála esetén mennyivel növekszik a játékos varázsereje
 	//Leszármazott osztályokban felülírni!
