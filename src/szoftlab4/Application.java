@@ -374,7 +374,7 @@ public class Application {
 	public static void addenemy(String args[]) {
 		int sor = Integer.parseInt(args[3]);
 		int oszlop = Integer.parseInt(args[4]);
-		Cella valasztott = game.jatekter.cellak.get(sor).get(oszlop);
+		Cella valasztott = (Ut)game.jatekter.cellak.get(sor).get(oszlop);
 		if (!valasztott.mezovagyok()) {
 			int type = 0;
 			if (args[1].matches("hobbit"))
@@ -385,6 +385,10 @@ public class Application {
 				type = 2;
 			else if (args[1].matches("torpe"))
 				type = 3;
+			else{
+				System.out.println("Bad parameter");
+				return;
+			}
 
 			switch (type) {
 			case 0:
@@ -418,6 +422,7 @@ public class Application {
 			default:
 				System.out.println("Bad parameter");
 			}
+			
 
 		} else {
 			System.out.printf(" Nem mezo, vagy valami baj van \n");
@@ -467,10 +472,11 @@ public class Application {
 				megvan = true;
 			}
 		}
+		
+		
 
 		if (megvan) {
 			Ellenseg temp = game.ellenseglista.get(index);
-
 			int irany;
 			if (args[2].matches("N"))
 				irany = 1;
