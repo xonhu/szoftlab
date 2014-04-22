@@ -38,4 +38,8 @@ public class VegzetHegye implements Utravalo {
 	public void init(Ut sajat){
 		sajatUt = sajat;
 	}
+	
+	public int getElet(){
+		return elet;
+	}
 }

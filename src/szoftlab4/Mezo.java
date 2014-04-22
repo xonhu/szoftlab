@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Mezo extends Cella {
 	
 	//Az adott mezõn lévõ elemeket tartalmazó lista
-	private ArrayList<Mezorevalo> rajtamvan;	
+	public ArrayList<Mezorevalo> rajtamvan;	
 	
 	//A Mezo osztály konstruktora, amely meghívja a cella konstruktorát is
 	public Mezo(){
