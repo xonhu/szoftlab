@@ -1,7 +1,5 @@
 package szoftlab4;
 
-import java.io.IOException;
-import java.util.Random;
 import java.util.ArrayList;
 
 public class Ellenseg implements Utravalo, Aktiv {
