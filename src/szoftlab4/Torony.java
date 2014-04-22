@@ -8,7 +8,7 @@ import java.util.Random;
 public class Torony implements Aktiv, Mezorevalo {
 	
 		public String id;
-		private Mezo sajatMezo;
+		public Mezo sajatMezo;
 		private int hatotav;
 		private int tuzgyak;
 		private int sebzes;
