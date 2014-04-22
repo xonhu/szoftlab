@@ -420,10 +420,10 @@ public class Application {
 				}
 			}
 			if (megvan == false) {
-				System.out.printf("Nem letezo ID \n");
+				System.out.printf("Nem letezo ID\n");
 			}
 		} else {
-			System.out.printf("Nem letezo varazsko \n");
+			System.out.printf("Nem letezo varazsko\n");
 		}
 	}
 
@@ -511,7 +511,7 @@ public class Application {
 		boolean megvan = false;
 		int index = 0;
 		while (megvan == false && index < game.toronylista.size()) {
-			if (game.toronylista.get(index).id == args[0]) {
+			if (game.toronylista.get(index).id.matches(args[1])) {
 				game.toronylista.get(index).kodosit();
 				megvan = true;
 				System.out.println("Kod hozzaadva");
@@ -533,100 +533,30 @@ public class Application {
 					megvan = true;
 				}
 			}
-			
-			
-	
+
+
+
 			if (megvan) {
 				Ellenseg temp = game.ellenseglista.get(index);
-				int irany;
 				if (args[2].matches("N"))
-					irany = 1;
+					temp.irany = 1;
 				else if (args[2].matches("S"))
-					irany = 2;
+					temp.irany = 2;
 				else if (args[2].matches("E"))
-					irany = 3;
+					temp.irany = 3;
 				else if (args[2].matches("W"))
-					irany = 4;
+					temp.irany = 4;
 				else
-					irany = 0;
-				int x, y;
-				switch (irany) {
-				case 1:
-					x = Application.game.getCoord(temp.sajatUt).x;
-					y = Application.game.getCoord(temp.sajatUt).y;
-					y--;
-	
-					for (Cella sj : temp.sajatUt.szomszedok) {
-						if (Application.game.getCoord(sj).x == x
-								&& Application.game.getCoord(sj).y == y) {
-							sj.ratesz(temp);
-							System.out.println("Ellenseg iranya beallitva");
-							return;
-						}
-					}
-					System.out.println("Invalid Parameter");
-					break;
-	
-				case 2:
-					x = Application.game.getCoord(temp.sajatUt).x;
-					y = Application.game.getCoord(temp.sajatUt).y;
-					y++;
-	
-					for (Cella sj : temp.sajatUt.szomszedok) {
-						if (Application.game.getCoord(sj).x == x
-								&& Application.game.getCoord(sj).y == y) {
-							sj.ratesz(temp);
-							System.out.println("Ellenseg iranya beallitva");
-							return;
-						}
-					}
-					System.out.println("Invalid Parameter");
-					break;
-	
-				case 3:
-					x = Application.game.getCoord(temp.sajatUt).x;
-					y = Application.game.getCoord(temp.sajatUt).y;
-					x--;
-	
-					for (Cella sj : temp.sajatUt.szomszedok) {
-						if (Application.game.getCoord(sj).x == x
-								&& Application.game.getCoord(sj).y == y) {
-							sj.ratesz(temp);
-							System.out.println("Ellenseg iranya beallitva");
-							return;
-						}
-					}
-					System.out.println("Invalid Parameter");
-					break;
-	
-				case 4:
-					x = Application.game.getCoord(temp.sajatUt).x;
-					y = Application.game.getCoord(temp.sajatUt).y;
-					x++;
-	
-					for (Cella sj : temp.sajatUt.szomszedok) {
-						if (Application.game.getCoord(sj).x == x
-								&& Application.game.getCoord(sj).y == y) {
-							sj.ratesz(temp);
-							System.out.println("Ellenseg iranya beallitva");
-							return;
-						}
-					}
-					System.out.println("Invalid Parameter");
-					break;
-				case 0:
-				default:
-					System.out.printf("Invalid Parameter \n");
-					break;
-	
-				}
+					temp.irany = 0;
+
+				System.out.println("Ellenseg iranya beallitva");
 			} else
 				System.out.printf("Invalid Parameter \n");
-		
+
 		}
 		else System.out.println("Bad parameters");
-	}
 
+	}
 	public static void addtrap(String[] args) {
 		int sor = Integer.parseInt(args[2]);
 		int oszlop = Integer.parseInt(args[3]);

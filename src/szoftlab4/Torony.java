@@ -57,7 +57,7 @@ public class Torony implements Aktiv, Mezorevalo {
 			 }
 		}
 			
-			
+		tuzel();
 		int varazs = 0;
 		for(int i = 0;i<kovek.size();i++){
 			if(kovek.get(i) instanceof Sargavarazsko)

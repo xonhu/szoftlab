@@ -10,6 +10,8 @@ public class Ellenseg implements Utravalo, Aktiv {
 	
 	public int count;
 	
+	public int irany=3;
+	
 	//Tartalmazza hogy az Elenség éppen melyik mezõn van rajta
 	public Ut sajatUt;
 	
@@ -70,12 +72,12 @@ public class Ellenseg implements Utravalo, Aktiv {
 	}
 	
 	//Kiválaszt egy utat ahova lépni szeretne
-	public void lepek(ArrayList<Ut> utak){
-		 Random randomGenerator = new Random();
-		 int index = randomGenerator.nextInt(utak.size());
-         Ut kovetkezout = utak.get(index);
-		kovetkezout.ratesz(this);
-	}
+			public void lepek(ArrayList<Ut> utak){
+				 Random randomGenerator = new Random();
+				 int index = randomGenerator.nextInt(utak.size());
+		         Ut kovetkezout = utak.get(index);
+				kovetkezout.ratesz(this);
+			}
 	
 	//A sajatUt attribútumot inicializálja
 	public void init(Ut sajat){
