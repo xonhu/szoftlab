@@ -9,7 +9,7 @@ public class Ellenseg implements Utravalo, Aktiv {
 	public String id;
 	
 	//Tartalmazza hogy az Elenség éppen melyik mezõn van rajta
-	protected Ut sajatUt;
+	public Ut sajatUt;
 	
 	//Tartalmazza az Ellenség életének értékét
 	//Leszármazott osztályokban felülírni!

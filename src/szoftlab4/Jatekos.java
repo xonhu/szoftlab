@@ -49,15 +49,22 @@ public class Jatekos {
 	}
 
 	//Egy új akadályt hozhatunk létre, ha van rá elég varázserõnk
-	public void ujAkadaly(Ut valasztottUt) {
-		valasztottUt.ratesz(new Akadaly());
-		varazserotVeszit(50);
+	public void ujAkadaly(Ut valasztottUt, Akadaly ezt) {
+		
+		if(varazsero>=50){
+			valasztottUt.ratesz(ezt);
+			varazserotVeszit(50);
+			System.out.println("Akadaly letrehozva");
+		}else{
+			System.out.println("Nincs eleg varazsero");
+		}
+		
 	}
 
 	//Egy új Tornyot hozhatunk létre, ha van rá elég varázserõnk
 	public void ujTorony(Mezo valasztottMezo, Torony ezt) {
 		
-		if(varazsero>50){
+		if(varazsero>=50){
 			valasztottMezo.ratesz(ezt);
 			varazserotVeszit(50);
 			System.out.println("Torony letrehozva");

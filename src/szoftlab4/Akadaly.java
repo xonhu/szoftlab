@@ -27,6 +27,14 @@ public class Akadaly implements Utravalo {
 		ko = null;
 	}
 	
+	public Akadaly(String iduj){
+		sajatUt = null;
+		counter = 0;
+		lassitas = 10;
+		ko = null;
+		id= iduj;
+	}
+	
 	//Függvény ami visszaadja, hogy az adott körben léphet-e az Ellenség
 	public boolean lephete(){
 	

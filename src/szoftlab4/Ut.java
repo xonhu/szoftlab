@@ -10,19 +10,17 @@ public class Ut extends Cella{
 	//Az úton található akadály
 	public Akadaly akadaly;
 	
-	//Szomszéd cellákat tartalmazza
-	ArrayList<Cella> szomszedok;
 
 	//Ut osztály paraméteres konstruktora
 	public Ut(ArrayList<Cella> l){
+		super(l);
 		rajtamvan = new ArrayList<Utravalo>();
-		szomszedok = l;
 	}
 	
 	//Ut osztály paraméter nélküli konstruktora
 	public Ut(){
+		super();
 		rajtamvan = new ArrayList<Utravalo>();
-		szomszedok = null;
 	}
 
 	//Az útra teszi a megadott elemet
