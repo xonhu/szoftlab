@@ -7,6 +7,8 @@ import java.util.ArrayList;
 public class Ellenseg implements Utravalo, Aktiv {
 	
 	public String id;
+	public int irany=0;
+	public int count=0;
 	
 	//Tartalmazza hogy az Elenség éppen melyik mezõn van rajta
 	public Ut sajatUt;
@@ -31,10 +33,12 @@ public class Ellenseg implements Utravalo, Aktiv {
 	//Leszármazott osztályban felülírni!
 	public void tick(){
 		
-		if(false){
+		if(count%4 == 0){
 			ArrayList<Ut> lehetsegesutak = sajatUt.lepnek();
 			lepek(lehetsegesutak);
-		}
+			System.out.println(lehetsegesutak.size());
+			count = 0;
+		} else count++;
 		
 	}
 	
@@ -69,10 +73,69 @@ public class Ellenseg implements Utravalo, Aktiv {
 	
 	//Kiválaszt egy utat ahova lépni szeretne
 	public void lepek(ArrayList<Ut> utak){
-		 Random randomGenerator = new Random();
-		 int index = randomGenerator.nextInt(utak.size());
-         Ut kovetkezout = utak.get(index);
-		kovetkezout.ratesz(this);
+		int x,y;
+		switch (irany) {
+			case 1:
+				x = Application.game.getCoord(sajatUt).x;
+				y = Application.game.getCoord(sajatUt).y;
+				y--;
+	
+				for (Cella sj : utak) {
+					if (Application.game.getCoord(sj).x == x
+							&& Application.game.getCoord(sj).y == y) {
+						sj.ratesz(this);
+						return;
+					}
+				}
+				break;
+	
+			 case 2:
+				x = Application.game.getCoord(sajatUt).x;
+				y = Application.game.getCoord(sajatUt).y;
+				y++;
+	
+				for (Cella sj : utak) {
+					if (Application.game.getCoord(sj).x == x
+							&& Application.game.getCoord(sj).y == y) {
+						sj.ratesz(this);
+						return;
+					}
+				}
+				break;
+	
+			 case 3:
+				x = Application.game.getCoord(sajatUt).x;
+				y = Application.game.getCoord(sajatUt).y;
+				x--;
+	
+				for (Cella sj : utak) {
+					if (Application.game.getCoord(sj).x == x
+							&& Application.game.getCoord(sj).y == y) {
+						sj.ratesz(this);
+						return;
+					}
+				}
+				break;
+	
+			 case 4:
+				x = Application.game.getCoord(sajatUt).x;
+				y = Application.game.getCoord(sajatUt).y;
+				x++;
+	
+				for (Cella sj : utak) {
+					if (Application.game.getCoord(sj).x == x
+							&& Application.game.getCoord(sj).y == y) {
+						sj.ratesz(this);
+						return;
+					}
+				}
+				break;
+			 case 0:
+			 default:
+				break;
+	
+		}
+		
 	}
 	
 	//A sajatUt attribútumot inicializálja
