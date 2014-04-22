@@ -15,8 +15,7 @@ public class Mezo extends Cella {
 	
 	//A mezõ osztály paraméteres konstruktora, ami incializálja a szomszédokat is
 	public Mezo(ArrayList<Cella> l){
-		super();
-		szomszedok = l;
+		super(l);
 		rajtamvan = new ArrayList<Mezorevalo>();
 	}
 
