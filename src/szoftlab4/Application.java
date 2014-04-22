@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /*
  *	Prototípus fõprogram
@@ -16,7 +17,7 @@ public class Application {
 	 * Prototípus konzolos felületének parancsai
 	 */
 	private static enum Code {
-		loadmap, printstate, tick, printpower, printgems, buygem, addtower, addtowergem, addtrap, addtrapgem, addenemy, addspecialprojectile, addfog, enemydirection, exit, error, enter;
+		loadmap, printstate, tick, printpower, printgems, buygem, addtower, addtowergem, addtrap, addmagic, addtrapgem, addenemy, addspecialprojectile, addfog, enemydirection, exit, error, enter;
 
 		/*
 		 * Paraméterként átadott sztringhez tartozó kódszó visszaadása
@@ -97,6 +98,10 @@ public class Application {
 					break;
 				case addtrap:
 					addtrap(parancs);
+					break;
+				case addmagic:
+					addmagic(parancs);
+					break;
 				case addenemy:
 					addenemy(parancs);
 					break;
@@ -148,7 +153,37 @@ public class Application {
 			System.out.println("Invalid parameter");
 	}
 
+	public static void addmagic(String args[]){
+		int magic = 0;
+		if (args.length > 1)
+			magic = Integer.parseInt(args[1]);
+		else
+			magic = 50;
+		
+		game.jatekter.felhasznalo.varazserotKap(magic);
+		System.out.println(magic + " varazsero hozzadva");
+	}
 	public static void printstate() {
+		boolean go = false;
+		for(ArrayList<Cella> sor : game.jatekter.cellak){
+			for(Cella cc : sor){
+				if(!cc.mezovagyok()){
+					for(Utravalo mm : ((Ut)cc).rajtamvan){
+						
+						if(mm instanceof VegzetHegye){
+							System.out.println("Vegzet Hegye " + ((VegzetHegye)mm).getElet());
+							go=true;
+							break;
+						}
+						if(go) break;
+					}
+				}
+				if(go) break;
+			}
+			if(go) break;
+		}
+		
+		
 		for (int i = 0; i < game.toronylista.size(); i++) {
 			int x = game.getCoord(game.toronylista.get(i).sajatMezo).x;
 			int y = game.getCoord(game.toronylista.get(i).sajatMezo).y;
